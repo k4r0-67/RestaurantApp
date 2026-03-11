@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">Restaurant App</string>
+    <string name="restaurant_name">La Bella Cucina</string>
+    <string name="restaurant_tagline">Fine Dining, Delivered to You</string>
+
+    <!-- Auth screens -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="name">Full Name</string>
+    <string name="phone">Phone Number</string>
+    <string name="address">Address</string>
+    <string name="dont_have_account">Don\'t have an account? Register</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="login_success">Welcome back!</string>
+    <string name="register_success">Account created! Please login.</string>
+    <string name="register_failed">Registration failed. Please try again.</string>
+
+    <!-- Error messages -->
+    <string name="error_email_required">Email is required</string>
+    <string name="error_email_invalid">Please enter a valid email address</string>
+    <string name="error_email_exists">This email is already registered</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_short">Password must be at least 6 characters</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_name_required">Name is required</string>
+    <string name="error_phone_required">Phone number is required</string>
+    <string name="error_invalid_credentials">Invalid email or password</string>
+
+    <!-- Main screen -->
+    <string name="welcome_message">Welcome, %s!</string>
+    <string name="explore_menu">Explore Our Menu</string>
+    <string name="our_categories">Our Categories</string>
+
+    <!-- Menu screen -->
+    <string name="menu">Menu</string>
+    <string name="search_food">Search food…</string>
+    <string name="added_to_cart">added to cart</string>
+    <string name="no_items_found">No items found</string>
+
+    <!-- Food detail screen -->
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="quantity">Quantity</string>
+
+    <!-- Cart screen -->
+    <string name="cart">My Cart</string>
+    <string name="empty_cart">Your cart is empty</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="tax">Tax (8%)</string>
+    <string name="total">Total</string>
+    <string name="place_order">Place Order</string>
+    <string name="item_removed">Item removed from cart</string>
+    <string name="cart_empty">Cart is empty</string>
+    <string name="order_failed">Failed to place order. Please try again.</string>
+
+    <!-- Order confirmation -->
+    <string name="order_confirmed">Order Confirmed!</string>
+    <string name="order_placed_msg">Your order has been placed successfully.</string>
+    <string name="order_number">Order #%d</string>
+    <string name="estimated_delivery">Estimated delivery: 30–45 minutes</string>
+    <string name="back_to_home">Back to Home</string>
+
+    <!-- Order history -->
+    <string name="order_history">Order History</string>
+    <string name="no_orders">No orders yet</string>
+
+    <!-- Profile screen -->
+    <string name="profile">My Profile</string>
+    <string name="save">Save</string>
+    <string name="logout">Logout</string>
+    <string name="profile_updated">Profile updated successfully</string>
+    <string name="profile_update_failed">Failed to update profile</string>
+
+    <!-- About screen -->
+    <string name="about">About Us</string>
+    <string name="about_description">La Bella Cucina is a premium restaurant offering a wide variety of dishes crafted with the finest ingredients. We are committed to delivering an unforgettable dining experience.</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="phone_number">📞 +1 (555) 123-4567</string>
+    <string name="email_address">✉️ info@labellacucina.com</string>
+    <string name="location">📍 123 Gourmet Street, Foodville, FC 00123</string>
+    <string name="hours_of_operation">Hours of Operation</string>
+    <string name="hours_weekdays">Monday – Friday: 11:00 AM – 10:00 PM</string>
+    <string name="hours_weekend">Saturday – Sunday: 10:00 AM – 11:00 PM</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_orders">Orders</string>
+    <string name="nav_profile">Profile</string>
+</resources>
