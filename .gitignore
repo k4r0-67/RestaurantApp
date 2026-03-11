@@ -1,0 +1,62 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Android Gradle plugin generated folders
+app/build/
+
+# Generated files
+bin/
+gen/
+out/
+
+# Gradle cache
+.gradle/
+
+# IntelliJ IDEA
+*.iws
+*.ipr
+*.iml
+.idea/
+
+# Build artifacts
+build/
+*/build/
+
+# Keystore files (uncomment to not include in version control)
+# *.jks
+# *.keystore
+
+# Log Files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# Intellij
+*.iml
+
+# Keystore files
+*.keystore
+*.jks
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
