@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:background="@color/surface"
         app:menu="@menu/bottom_nav_menu"
-        app:selectedItemColor="@color/primary"
-        app:unselectedItemColor="@color/text_secondary" />
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color" />
 
 </LinearLayout>
