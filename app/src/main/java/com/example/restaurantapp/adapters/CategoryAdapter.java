@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String category = categories.get(position);
         holder.tvCategory.setText(category);
-        holder.tvEmoji.setText(getCategoryEmoji(category));
+        holder.ivCategory.setImageResource(getCategoryIconRes(category));
 
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(context, MenuActivity.class);
@@ -55,28 +56,28 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     /**
-     * Returns an emoji icon for the given category name.
+     * Returns the drawable resource for the given category name.
      */
-    private String getCategoryEmoji(String category) {
+    private int getCategoryIconRes(String category) {
         switch (category) {
-            case "Appetizers": return "🥗";
-            case "Main Course": return "🍽️";
-            case "Desserts": return "🍰";
-            case "Beverages": return "🥤";
-            default: return "🍴";
+            case "Appetizers": return R.drawable.ic_category_appetizers;
+            case "Main Course": return R.drawable.ic_category_main_course;
+            case "Desserts": return R.drawable.ic_category_desserts;
+            case "Beverages": return R.drawable.ic_category_beverages;
+            default: return R.drawable.ic_food_placeholder;
         }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView tvCategory;
-        TextView tvEmoji;
+        ImageView ivCategory;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.cardView);
             tvCategory = itemView.findViewById(R.id.tvCategory);
-            tvEmoji = itemView.findViewById(R.id.tvEmoji);
+            ivCategory = itemView.findViewById(R.id.ivCategory);
         }
     }
 }
