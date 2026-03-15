@@ -1,4 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Professional toolbar: elevation, title style, navigation icon tint -->
+    <style name="Widget.RestaurantApp.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/primary</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="titleTextColor">@color/text_on_primary</item>
+        <item name="titleTextAppearance">@style/TextAppearance.RestaurantApp.Toolbar.Title</item>
+        <item name="contentInsetStartWithNavigation">16dp</item>
+        <item name="theme">@style/ThemeOverlay.RestaurantApp.Toolbar</item>
+    </style>
+    <style name="ThemeOverlay.RestaurantApp.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/text_on_primary</item>
+    </style>
+    <style name="TextAppearance.RestaurantApp.Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_on_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
     <!-- Base application theme (NoActionBar: all screens use custom Toolbars or no bar). -->
     <style name="Theme.RestaurantApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
@@ -6,6 +26,7 @@
         <item name="colorAccent">@color/accent</item>
         <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="toolbarStyle">@style/Widget.RestaurantApp.Toolbar</item>
     </style>
 
     <!-- Splash screen theme (no action bar) -->
