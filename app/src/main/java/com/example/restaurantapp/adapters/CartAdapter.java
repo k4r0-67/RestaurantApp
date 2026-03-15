@@ -56,7 +56,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CartItem item = cartItems.get(position);
 
-        holder.ivFood.setImageResource(R.drawable.ic_food_placeholder);
+        int imageResId = item.getFoodItem().getImageResId();
+        holder.ivFood.setImageResource(imageResId != 0 ? imageResId : R.drawable.ic_food_placeholder);
         holder.tvName.setText(item.getFoodItem().getName());
         holder.tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", item.getFoodItem().getPrice()));
         holder.tvQuantity.setText(String.valueOf(item.getQuantity()));

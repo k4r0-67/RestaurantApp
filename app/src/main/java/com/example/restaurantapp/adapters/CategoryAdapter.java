@@ -63,6 +63,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             case "Main Course": return "🍽️";
             case "Desserts": return "🍰";
             case "Beverages": return "🥤";
+            case "Sides": return "🍟";
+            case "Breakfast": return "🍳";
+            case "Seafood": return "🦐";
+            case "Salads": return "🥬";
             default: return "🍴";
         }
     }
