@@ -27,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database info
     private static final String DATABASE_NAME = "RestaurantApp.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Table names
     public static final String TABLE_USERS = "users";
@@ -128,6 +128,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Returns the drawable resource ID by name, or 0 if not found.
+     * Use for unique per-item icons (e.g. getDrawableId("ic_food_fries")).
+     */
+    private int getDrawableId(String drawableName) {
+        int id = context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
+        return id != 0 ? id : context.getResources().getIdentifier("ic_food_placeholder", "drawable", context.getPackageName());
+    }
+
+    /**
      * Returns the drawable resource ID for a food category, or 0 if not found.
      */
     private int getDrawableIdForCategory(String category) {
@@ -158,8 +167,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Refresh menu items when upgrading so new food items appear without losing user data
-        if (oldVersion < 2) {
+        // Refresh menu items when upgrading so new food items (and unique icons) appear without losing user data
+        if (oldVersion < 3) {
             db.delete(TABLE_CART_ITEMS, null, null);  // Clear cart so it doesn't reference old food IDs
             db.delete(TABLE_FOOD_ITEMS, null, null);
             populateSampleFoodItems(db);
@@ -603,204 +612,195 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Pre-populate the food_items table with sample menu data.
      */
     private void populateSampleFoodItems(SQLiteDatabase db) {
-        int imgAppetizer = getDrawableIdForCategory("Appetizers");
-        int imgMain = getDrawableIdForCategory("Main Course");
-        int imgDessert = getDrawableIdForCategory("Desserts");
-        int imgBeverage = getDrawableIdForCategory("Beverages");
-        int imgSides = getDrawableIdForCategory("Sides");
-        int imgBreakfast = getDrawableIdForCategory("Breakfast");
-        int imgSeafood = getDrawableIdForCategory("Seafood");
-        int imgSalads = getDrawableIdForCategory("Salads");
-
-        // Appetizers
-        insertFoodItem(db, "Spring Rolls", "Crispy fried rolls filled with vegetables and served with sweet chili sauce.", 6.99, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Chicken Soup", "Hearty homemade chicken soup with vegetables and herbs.", 5.49, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Bruschetta", "Toasted bread topped with fresh tomatoes, garlic, basil, and olive oil.", 7.99, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Mozzarella Sticks", "Golden-fried mozzarella sticks served with marinara sauce.", 8.49, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Chicken Wings", "Crispy chicken wings tossed in your choice of buffalo or BBQ sauce.", 11.99, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Hummus & Pita", "Creamy chickpea hummus with warm pita bread and olive oil.", 6.49, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Shrimp Cocktail", "Chilled shrimp served with tangy cocktail sauce and lemon.", 12.49, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Stuffed Mushrooms", "Baked mushrooms stuffed with cream cheese, garlic, and herbs.", 9.99, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Nachos", "Tortilla chips topped with cheese, jalapeños, sour cream, and guacamole.", 10.49, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Garlic Bread", "Toasted baguette with butter and roasted garlic, topped with parsley.", 5.99, imgAppetizer, "Appetizers");
-        insertFoodItem(db, "Onion Rings", "Crispy beer-battered onion rings with ranch or ketchup.", 7.49, imgAppetizer, "Appetizers");
+        // Appetizers - each with unique icon
+        insertFoodItem(db, "Spring Rolls", "Crispy fried rolls filled with vegetables and served with sweet chili sauce.", 6.99, getDrawableId("ic_food_roll"), "Appetizers");
+        insertFoodItem(db, "Chicken Soup", "Hearty homemade chicken soup with vegetables and herbs.", 5.49, getDrawableId("ic_food_soup"), "Appetizers");
+        insertFoodItem(db, "Bruschetta", "Toasted bread topped with fresh tomatoes, garlic, basil, and olive oil.", 7.99, getDrawableId("ic_food_bread"), "Appetizers");
+        insertFoodItem(db, "Mozzarella Sticks", "Golden-fried mozzarella sticks served with marinara sauce.", 8.49, getDrawableId("ic_food_cheese"), "Appetizers");
+        insertFoodItem(db, "Chicken Wings", "Crispy chicken wings tossed in your choice of buffalo or BBQ sauce.", 11.99, getDrawableId("ic_food_wings"), "Appetizers");
+        insertFoodItem(db, "Hummus & Pita", "Creamy chickpea hummus with warm pita bread and olive oil.", 6.49, getDrawableId("ic_food_dip"), "Appetizers");
+        insertFoodItem(db, "Shrimp Cocktail", "Chilled shrimp served with tangy cocktail sauce and lemon.", 12.49, getDrawableId("ic_food_shrimp"), "Appetizers");
+        insertFoodItem(db, "Stuffed Mushrooms", "Baked mushrooms stuffed with cream cheese, garlic, and herbs.", 9.99, getDrawableId("ic_food_mushroom"), "Appetizers");
+        insertFoodItem(db, "Nachos", "Tortilla chips topped with cheese, jalapeños, sour cream, and guacamole.", 10.49, getDrawableId("ic_food_nachos"), "Appetizers");
+        insertFoodItem(db, "Garlic Bread", "Toasted baguette with butter and roasted garlic, topped with parsley.", 5.99, getDrawableId("ic_food_bread"), "Appetizers");
+        insertFoodItem(db, "Onion Rings", "Crispy beer-battered onion rings with ranch or ketchup.", 7.49, getDrawableId("ic_food_onion_rings"), "Appetizers");
 
         // Main Course
-        insertFoodItem(db, "Grilled Chicken", "Juicy grilled chicken breast with herbs, served with seasonal vegetables.", 14.99, imgMain, "Main Course");
-        insertFoodItem(db, "Spaghetti Carbonara", "Classic Italian pasta with creamy egg sauce, pancetta, and Parmesan.", 13.99, imgMain, "Main Course");
-        insertFoodItem(db, "Ribeye Steak", "Premium 12oz ribeye steak cooked to your preference with garlic butter.", 28.99, imgMain, "Main Course");
-        insertFoodItem(db, "Classic Burger", "Beef patty with lettuce, tomato, cheese, and special sauce on a brioche bun.", 12.99, imgMain, "Main Course");
-        insertFoodItem(db, "Margherita Pizza", "Classic pizza with fresh mozzarella, tomato sauce, and basil.", 14.49, imgMain, "Main Course");
-        insertFoodItem(db, "Salmon Fillet", "Pan-seared salmon with lemon butter sauce and asparagus.", 19.99, imgMain, "Main Course");
-        insertFoodItem(db, "Veggie Stir Fry", "Fresh seasonal vegetables stir-fried in savory sauce, served over rice.", 11.99, imgMain, "Main Course");
-        insertFoodItem(db, "Chicken Parmesan", "Breaded chicken breast with marinara and melted mozzarella over spaghetti.", 16.99, imgMain, "Main Course");
-        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with crispy fries, coleslaw, and tartar sauce.", 15.49, imgMain, "Main Course");
-        insertFoodItem(db, "Beef Tacos", "Three soft tacos with seasoned beef, lettuce, cheese, and salsa.", 11.49, imgMain, "Main Course");
-        insertFoodItem(db, "Lamb Chops", "Grilled lamb chops with mint sauce and roasted potatoes.", 24.99, imgMain, "Main Course");
-        insertFoodItem(db, "Vegetable Curry", "Creamy coconut curry with mixed vegetables and basmati rice.", 13.49, imgMain, "Main Course");
-        insertFoodItem(db, "BBQ Ribs", "Slow-cooked pork ribs with house BBQ sauce and coleslaw.", 22.99, imgMain, "Main Course");
-        insertFoodItem(db, "Pad Thai", "Stir-fried rice noodles with shrimp, peanuts, and tamarind sauce.", 14.99, imgMain, "Main Course");
-        insertFoodItem(db, "Lasagna", "Layers of pasta, beef ragù, béchamel, and melted cheese.", 15.99, imgMain, "Main Course");
+        insertFoodItem(db, "Grilled Chicken", "Juicy grilled chicken breast with herbs, served with seasonal vegetables.", 14.99, getDrawableId("ic_food_chicken"), "Main Course");
+        insertFoodItem(db, "Spaghetti Carbonara", "Classic Italian pasta with creamy egg sauce, pancetta, and Parmesan.", 13.99, getDrawableId("ic_food_pasta"), "Main Course");
+        insertFoodItem(db, "Ribeye Steak", "Premium 12oz ribeye steak cooked to your preference with garlic butter.", 28.99, getDrawableId("ic_food_steak"), "Main Course");
+        insertFoodItem(db, "Classic Burger", "Beef patty with lettuce, tomato, cheese, and special sauce on a brioche bun.", 12.99, getDrawableId("ic_food_burger"), "Main Course");
+        insertFoodItem(db, "Margherita Pizza", "Classic pizza with fresh mozzarella, tomato sauce, and basil.", 14.49, getDrawableId("ic_food_pizza"), "Main Course");
+        insertFoodItem(db, "Salmon Fillet", "Pan-seared salmon with lemon butter sauce and asparagus.", 19.99, getDrawableId("ic_food_salmon"), "Main Course");
+        insertFoodItem(db, "Veggie Stir Fry", "Fresh seasonal vegetables stir-fried in savory sauce, served over rice.", 11.99, getDrawableId("ic_food_vegetables"), "Main Course");
+        insertFoodItem(db, "Chicken Parmesan", "Breaded chicken breast with marinara and melted mozzarella over spaghetti.", 16.99, getDrawableId("ic_food_chicken"), "Main Course");
+        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with crispy fries, coleslaw, and tartar sauce.", 15.49, getDrawableId("ic_food_fish"), "Main Course");
+        insertFoodItem(db, "Beef Tacos", "Three soft tacos with seasoned beef, lettuce, cheese, and salsa.", 11.49, getDrawableId("ic_food_tacos"), "Main Course");
+        insertFoodItem(db, "Lamb Chops", "Grilled lamb chops with mint sauce and roasted potatoes.", 24.99, getDrawableId("ic_food_steak"), "Main Course");
+        insertFoodItem(db, "Vegetable Curry", "Creamy coconut curry with mixed vegetables and basmati rice.", 13.49, getDrawableId("ic_food_curry"), "Main Course");
+        insertFoodItem(db, "BBQ Ribs", "Slow-cooked pork ribs with house BBQ sauce and coleslaw.", 22.99, getDrawableId("ic_food_ribs"), "Main Course");
+        insertFoodItem(db, "Pad Thai", "Stir-fried rice noodles with shrimp, peanuts, and tamarind sauce.", 14.99, getDrawableId("ic_food_noodles"), "Main Course");
+        insertFoodItem(db, "Lasagna", "Layers of pasta, beef ragù, béchamel, and melted cheese.", 15.99, getDrawableId("ic_food_pasta"), "Main Course");
 
         // Desserts
-        insertFoodItem(db, "Chocolate Lava Cake", "Warm chocolate cake with a gooey molten center, served with vanilla ice cream.", 7.99, imgDessert, "Desserts");
-        insertFoodItem(db, "Vanilla Ice Cream", "Three scoops of premium vanilla ice cream with your choice of toppings.", 5.49, imgDessert, "Desserts");
-        insertFoodItem(db, "Tiramisu", "Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream.", 8.49, imgDessert, "Desserts");
-        insertFoodItem(db, "Cheesecake", "New York-style cheesecake with strawberry topping on a graham cracker crust.", 7.49, imgDessert, "Desserts");
-        insertFoodItem(db, "Crème Brûlée", "Classic French vanilla custard with a caramelized sugar topping.", 8.99, imgDessert, "Desserts");
-        insertFoodItem(db, "Brownie Sundae", "Warm chocolate brownie with ice cream, whipped cream, and chocolate sauce.", 7.49, imgDessert, "Desserts");
-        insertFoodItem(db, "Apple Pie", "Classic apple pie with cinnamon, served warm with vanilla ice cream.", 6.99, imgDessert, "Desserts");
-        insertFoodItem(db, "Panna Cotta", "Silky vanilla panna cotta with berry compote.", 7.99, imgDessert, "Desserts");
-        insertFoodItem(db, "Churros", "Crispy fried dough with cinnamon sugar and chocolate dipping sauce.", 6.49, imgDessert, "Desserts");
-        insertFoodItem(db, "Key Lime Pie", "Tangy key lime pie with graham cracker crust and whipped cream.", 7.99, imgDessert, "Desserts");
-        insertFoodItem(db, "Mousse au Chocolat", "Light and rich dark chocolate mousse with whipped cream.", 8.49, imgDessert, "Desserts");
-        insertFoodItem(db, "Baklava", "Layers of phyllo pastry with honey and walnuts.", 7.99, imgDessert, "Desserts");
+        insertFoodItem(db, "Chocolate Lava Cake", "Warm chocolate cake with a gooey molten center, served with vanilla ice cream.", 7.99, getDrawableId("ic_food_cake"), "Desserts");
+        insertFoodItem(db, "Vanilla Ice Cream", "Three scoops of premium vanilla ice cream with your choice of toppings.", 5.49, getDrawableId("ic_food_ice_cream"), "Desserts");
+        insertFoodItem(db, "Tiramisu", "Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream.", 8.49, getDrawableId("ic_food_tiramisu"), "Desserts");
+        insertFoodItem(db, "Cheesecake", "New York-style cheesecake with strawberry topping on a graham cracker crust.", 7.49, getDrawableId("ic_food_cheesecake"), "Desserts");
+        insertFoodItem(db, "Crème Brûlée", "Classic French vanilla custard with a caramelized sugar topping.", 8.99, getDrawableId("ic_food_cake"), "Desserts");
+        insertFoodItem(db, "Brownie Sundae", "Warm chocolate brownie with ice cream, whipped cream, and chocolate sauce.", 7.49, getDrawableId("ic_food_ice_cream"), "Desserts");
+        insertFoodItem(db, "Apple Pie", "Classic apple pie with cinnamon, served warm with vanilla ice cream.", 6.99, getDrawableId("ic_food_pie"), "Desserts");
+        insertFoodItem(db, "Panna Cotta", "Silky vanilla panna cotta with berry compote.", 7.99, getDrawableId("ic_food_cake"), "Desserts");
+        insertFoodItem(db, "Churros", "Crispy fried dough with cinnamon sugar and chocolate dipping sauce.", 6.49, getDrawableId("ic_food_pie"), "Desserts");
+        insertFoodItem(db, "Key Lime Pie", "Tangy key lime pie with graham cracker crust and whipped cream.", 7.99, getDrawableId("ic_food_pie"), "Desserts");
+        insertFoodItem(db, "Mousse au Chocolat", "Light and rich dark chocolate mousse with whipped cream.", 8.49, getDrawableId("ic_food_cake"), "Desserts");
+        insertFoodItem(db, "Baklava", "Layers of phyllo pastry with honey and walnuts.", 7.99, getDrawableId("ic_food_pie"), "Desserts");
 
         // Beverages
-        insertFoodItem(db, "Espresso", "Rich and bold single or double shot of espresso.", 2.99, imgBeverage, "Beverages");
-        insertFoodItem(db, "Fresh Orange Juice", "Freshly squeezed orange juice, served chilled.", 4.49, imgBeverage, "Beverages");
-        insertFoodItem(db, "Mango Smoothie", "Creamy blended mango smoothie with a hint of lime.", 5.99, imgBeverage, "Beverages");
-        insertFoodItem(db, "Lemonade", "Freshly made lemonade with mint, served over ice.", 3.99, imgBeverage, "Beverages");
-        insertFoodItem(db, "Cappuccino", "Espresso with steamed milk foam, optionally dusted with cocoa.", 4.49, imgBeverage, "Beverages");
-        insertFoodItem(db, "Iced Coffee", "Chilled coffee over ice with your choice of milk and sweetener.", 4.99, imgBeverage, "Beverages");
-        insertFoodItem(db, "Green Tea", "Premium Japanese green tea, hot or iced.", 3.49, imgBeverage, "Beverages");
-        insertFoodItem(db, "Milkshake", "Thick vanilla, chocolate, or strawberry milkshake.", 5.49, imgBeverage, "Beverages");
-        insertFoodItem(db, "Sparkling Water", "Refreshing sparkling water with a slice of lemon or lime.", 2.49, imgBeverage, "Beverages");
-        insertFoodItem(db, "Hot Chocolate", "Rich hot chocolate topped with whipped cream and marshmallows.", 4.99, imgBeverage, "Beverages");
-        insertFoodItem(db, "Iced Tea", "Freshly brewed iced tea with lemon, sweetened or unsweetened.", 3.49, imgBeverage, "Beverages");
-        insertFoodItem(db, "Smoothie Bowl", "Blended acai or berry smoothie topped with granola and fruit.", 6.99, imgBeverage, "Beverages");
+        insertFoodItem(db, "Espresso", "Rich and bold single or double shot of espresso.", 2.99, getDrawableId("ic_food_coffee"), "Beverages");
+        insertFoodItem(db, "Fresh Orange Juice", "Freshly squeezed orange juice, served chilled.", 4.49, getDrawableId("ic_food_juice"), "Beverages");
+        insertFoodItem(db, "Mango Smoothie", "Creamy blended mango smoothie with a hint of lime.", 5.99, getDrawableId("ic_food_smoothie"), "Beverages");
+        insertFoodItem(db, "Lemonade", "Freshly made lemonade with mint, served over ice.", 3.99, getDrawableId("ic_food_lemonade"), "Beverages");
+        insertFoodItem(db, "Cappuccino", "Espresso with steamed milk foam, optionally dusted with cocoa.", 4.49, getDrawableId("ic_food_coffee"), "Beverages");
+        insertFoodItem(db, "Iced Coffee", "Chilled coffee over ice with your choice of milk and sweetener.", 4.99, getDrawableId("ic_food_coffee"), "Beverages");
+        insertFoodItem(db, "Green Tea", "Premium Japanese green tea, hot or iced.", 3.49, getDrawableId("ic_food_tea"), "Beverages");
+        insertFoodItem(db, "Milkshake", "Thick vanilla, chocolate, or strawberry milkshake.", 5.49, getDrawableId("ic_food_smoothie"), "Beverages");
+        insertFoodItem(db, "Sparkling Water", "Refreshing sparkling water with a slice of lemon or lime.", 2.49, getDrawableId("ic_food_juice"), "Beverages");
+        insertFoodItem(db, "Hot Chocolate", "Rich hot chocolate topped with whipped cream and marshmallows.", 4.99, getDrawableId("ic_food_coffee"), "Beverages");
+        insertFoodItem(db, "Iced Tea", "Freshly brewed iced tea with lemon, sweetened or unsweetened.", 3.49, getDrawableId("ic_food_tea"), "Beverages");
+        insertFoodItem(db, "Smoothie Bowl", "Blended acai or berry smoothie topped with granola and fruit.", 6.99, getDrawableId("ic_food_smoothie"), "Beverages");
 
-        // Sides
-        insertFoodItem(db, "French Fries", "Crispy golden fries with sea salt, served with ketchup or mayo.", 4.99, imgSides, "Sides");
-        insertFoodItem(db, "Mashed Potatoes", "Creamy mashed potatoes with butter and herbs.", 4.49, imgSides, "Sides");
-        insertFoodItem(db, "Garlic Mashed Potatoes", "Mashed potatoes with roasted garlic and parsley.", 5.49, imgSides, "Sides");
-        insertFoodItem(db, "Coleslaw", "Creamy cabbage and carrot coleslaw with a tangy dressing.", 3.99, imgSides, "Sides");
-        insertFoodItem(db, "Mac and Cheese", "Creamy macaroni with a blend of cheddar and mozzarella.", 5.99, imgSides, "Sides");
-        insertFoodItem(db, "Steamed Vegetables", "Seasonal vegetables steamed with a light butter glaze.", 4.99, imgSides, "Sides");
-        insertFoodItem(db, "Rice Pilaf", "Fragrant rice cooked with herbs and toasted orzo.", 4.49, imgSides, "Sides");
-        insertFoodItem(db, "Sweet Potato Fries", "Crispy sweet potato fries with chipotle mayo.", 5.49, imgSides, "Sides");
-        insertFoodItem(db, "Onion Rings", "Beer-battered onion rings with ranch dipping sauce.", 5.99, imgSides, "Sides");
-        insertFoodItem(db, "Corn on the Cob", "Grilled corn with butter and optional chili lime seasoning.", 3.49, imgSides, "Sides");
-        insertFoodItem(db, "Loaded Baked Potato", "Baked potato with cheddar, bacon, sour cream, and chives.", 6.49, imgSides, "Sides");
-        insertFoodItem(db, "Truffle Fries", "Crispy fries tossed with truffle oil and parmesan.", 7.99, imgSides, "Sides");
-        insertFoodItem(db, "Grilled Asparagus", "Fresh asparagus with lemon butter and parmesan.", 5.99, imgSides, "Sides");
-        insertFoodItem(db, "Roasted Brussels Sprouts", "Crispy Brussels sprouts with balsamic glaze.", 5.49, imgSides, "Sides");
-        insertFoodItem(db, "Garlic Breadsticks", "Warm breadsticks with garlic butter and marinara.", 4.99, imgSides, "Sides");
-        insertFoodItem(db, "Jalapeño Poppers", "Cream cheese–stuffed jalapeños, breaded and fried.", 6.99, imgSides, "Sides");
-        insertFoodItem(db, "House Salad Side", "Mixed greens with tomato and choice of dressing.", 3.99, imgSides, "Sides");
-        insertFoodItem(db, "Black Beans & Rice", "Seasoned black beans over cilantro lime rice.", 4.49, imgSides, "Sides");
-        insertFoodItem(db, "Baked Beans", "Slow-cooked navy beans in sweet and smoky sauce.", 4.99, imgSides, "Sides");
-        insertFoodItem(db, "Creamed Spinach", "Creamy spinach with garlic and nutmeg.", 5.49, imgSides, "Sides");
-        insertFoodItem(db, "Crispy Tater Tots", "Golden tater tots with ketchup or cheese sauce.", 4.49, imgSides, "Sides");
-        insertFoodItem(db, "Green Beans Almondine", "Blanched green beans with toasted almonds and butter.", 5.99, imgSides, "Sides");
-        insertFoodItem(db, "Hash Browns", "Crispy shredded potato hash browns.", 4.99, imgSides, "Sides");
-        insertFoodItem(db, "Polenta", "Creamy Italian polenta with parmesan and herbs.", 5.49, imgSides, "Sides");
-        insertFoodItem(db, "Side of Fruit", "Fresh seasonal fruit cup.", 4.49, imgSides, "Sides");
-        insertFoodItem(db, "Twice-Baked Potato", "Baked potato stuffed with cheese, bacon, and sour cream.", 6.99, imgSides, "Sides");
+        // Sides - each with unique icon
+        insertFoodItem(db, "French Fries", "Crispy golden fries with sea salt, served with ketchup or mayo.", 4.99, getDrawableId("ic_food_fries"), "Sides");
+        insertFoodItem(db, "Mashed Potatoes", "Creamy mashed potatoes with butter and herbs.", 4.49, getDrawableId("ic_food_potato"), "Sides");
+        insertFoodItem(db, "Garlic Mashed Potatoes", "Mashed potatoes with roasted garlic and parsley.", 5.49, getDrawableId("ic_food_potato"), "Sides");
+        insertFoodItem(db, "Coleslaw", "Creamy cabbage and carrot coleslaw with a tangy dressing.", 3.99, getDrawableId("ic_food_coleslaw"), "Sides");
+        insertFoodItem(db, "Mac and Cheese", "Creamy macaroni with a blend of cheddar and mozzarella.", 5.99, getDrawableId("ic_food_mac_cheese"), "Sides");
+        insertFoodItem(db, "Steamed Vegetables", "Seasonal vegetables steamed with a light butter glaze.", 4.99, getDrawableId("ic_food_vegetables"), "Sides");
+        insertFoodItem(db, "Rice Pilaf", "Fragrant rice cooked with herbs and toasted orzo.", 4.49, getDrawableId("ic_food_rice"), "Sides");
+        insertFoodItem(db, "Sweet Potato Fries", "Crispy sweet potato fries with chipotle mayo.", 5.49, getDrawableId("ic_food_fries"), "Sides");
+        insertFoodItem(db, "Onion Rings", "Beer-battered onion rings with ranch dipping sauce.", 5.99, getDrawableId("ic_food_onion_rings"), "Sides");
+        insertFoodItem(db, "Corn on the Cob", "Grilled corn with butter and optional chili lime seasoning.", 3.49, getDrawableId("ic_food_corn"), "Sides");
+        insertFoodItem(db, "Loaded Baked Potato", "Baked potato with cheddar, bacon, sour cream, and chives.", 6.49, getDrawableId("ic_food_potato"), "Sides");
+        insertFoodItem(db, "Truffle Fries", "Crispy fries tossed with truffle oil and parmesan.", 7.99, getDrawableId("ic_food_fries"), "Sides");
+        insertFoodItem(db, "Grilled Asparagus", "Fresh asparagus with lemon butter and parmesan.", 5.99, getDrawableId("ic_food_vegetables"), "Sides");
+        insertFoodItem(db, "Roasted Brussels Sprouts", "Crispy Brussels sprouts with balsamic glaze.", 5.49, getDrawableId("ic_food_vegetables"), "Sides");
+        insertFoodItem(db, "Garlic Breadsticks", "Warm breadsticks with garlic butter and marinara.", 4.99, getDrawableId("ic_food_bread"), "Sides");
+        insertFoodItem(db, "Jalapeño Poppers", "Cream cheese–stuffed jalapeños, breaded and fried.", 6.99, getDrawableId("ic_food_cheese"), "Sides");
+        insertFoodItem(db, "House Salad Side", "Mixed greens with tomato and choice of dressing.", 3.99, getDrawableId("ic_food_salad_bowl"), "Sides");
+        insertFoodItem(db, "Black Beans & Rice", "Seasoned black beans over cilantro lime rice.", 4.49, getDrawableId("ic_food_beans"), "Sides");
+        insertFoodItem(db, "Baked Beans", "Slow-cooked navy beans in sweet and smoky sauce.", 4.99, getDrawableId("ic_food_beans"), "Sides");
+        insertFoodItem(db, "Creamed Spinach", "Creamy spinach with garlic and nutmeg.", 5.49, getDrawableId("ic_food_vegetables"), "Sides");
+        insertFoodItem(db, "Crispy Tater Tots", "Golden tater tots with ketchup or cheese sauce.", 4.49, getDrawableId("ic_food_fries"), "Sides");
+        insertFoodItem(db, "Green Beans Almondine", "Blanched green beans with toasted almonds and butter.", 5.99, getDrawableId("ic_food_vegetables"), "Sides");
+        insertFoodItem(db, "Hash Browns", "Crispy shredded potato hash browns.", 4.99, getDrawableId("ic_food_potato"), "Sides");
+        insertFoodItem(db, "Polenta", "Creamy Italian polenta with parmesan and herbs.", 5.49, getDrawableId("ic_food_rice"), "Sides");
+        insertFoodItem(db, "Side of Fruit", "Fresh seasonal fruit cup.", 4.49, getDrawableId("ic_food_juice"), "Sides");
+        insertFoodItem(db, "Twice-Baked Potato", "Baked potato stuffed with cheese, bacon, and sour cream.", 6.99, getDrawableId("ic_food_potato"), "Sides");
 
-        // Breakfast
-        insertFoodItem(db, "Pancakes", "Stack of fluffy buttermilk pancakes with maple syrup and butter.", 8.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Eggs Benedict", "Poached eggs on English muffin with Canadian bacon and hollandaise.", 12.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Avocado Toast", "Sourdough toast with smashed avocado, cherry tomatoes, and feta.", 9.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Full English Breakfast", "Eggs, bacon, sausage, beans, tomatoes, mushrooms, and toast.", 14.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Omelette", "Three-egg omelette with your choice of cheese, veggies, and meat.", 10.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Waffles", "Belgian waffles with whipped cream and fresh berries.", 9.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "French Toast", "Brioche French toast with cinnamon and powdered sugar.", 8.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Burrito", "Scrambled eggs, cheese, potatoes, and salsa in a flour tortilla.", 10.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Granola & Yogurt", "House granola with Greek yogurt and seasonal fruit.", 7.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Croissant & Jam", "Fresh butter croissant with strawberry or apricot jam.", 5.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Scrambled Eggs & Bacon", "Fluffy scrambled eggs with crispy bacon and toast.", 9.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Bowl", "Quinoa, black beans, avocado, egg, and salsa.", 11.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Smoked Salmon Bagel", "Toasted bagel with cream cheese, capers, and smoked salmon.", 12.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Huevos Rancheros", "Fried eggs on tortillas with ranchero sauce, beans, and cheese.", 10.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Steel-Cut Oatmeal", "Oatmeal with brown sugar, berries, and nuts.", 7.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Quesadilla", "Flour tortilla with eggs, cheese, and chorizo.", 9.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Belgian Waffle Combo", "Waffle with two eggs and your choice of bacon or sausage.", 13.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Fruit Parfait", "Layers of yogurt, granola, and fresh seasonal fruit.", 8.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Sandwich", "Egg, cheese, and choice of meat on English muffin or croissant.", 8.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Cinnamon Roll", "Warm cinnamon roll with cream cheese frosting.", 6.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Eggs Florentine", "Poached eggs on spinach and English muffin with hollandaise.", 11.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Skillet", "Potatoes, eggs, cheese, and choice of meat in a cast-iron skillet.", 12.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Banana Bread", "Fresh-baked banana bread with walnuts, served warm.", 5.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Protein Bowl", "Eggs, quinoa, black beans, avocado, and salsa.", 11.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Tacos", "Three soft tacos with eggs, cheese, and choice of bacon or chorizo.", 9.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Overnight Oats", "Oats soaked in milk with berries, nuts, and honey.", 6.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Eggs in a Basket", "Egg fried in the center of buttered toast.", 7.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Potatoes", "Seasoned roasted breakfast potatoes with onions and peppers.", 4.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Blueberry Pancakes", "Stack of pancakes loaded with fresh blueberries and maple syrup.", 9.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Chocolate Chip Waffles", "Belgian waffles with chocolate chips and whipped cream.", 10.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Shakshuka", "Eggs poached in spiced tomato and pepper sauce with bread.", 11.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Hash", "Crispy potatoes, onions, peppers, and choice of meat with eggs.", 10.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Muesli", "Swiss-style muesli with oats, nuts, dried fruit, and milk or yogurt.", 7.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Egg White Omelette", "Fluffy egg white omelette with vegetables and feta.", 10.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Biscuits and Gravy", "Flaky biscuits smothered in creamy sausage gravy.", 8.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Wrap", "Scrambled eggs, cheese, and veggies in a flour tortilla.", 8.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "French Toast Sticks", "Crispy French toast sticks with maple syrup for dipping.", 7.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Acai Bowl", "Blended acai topped with granola, banana, and honey.", 9.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Corned Beef Hash", "Crispy corned beef hash with onions and two eggs any style.", 12.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Chilaquiles", "Tortilla chips in salsa with eggs, cheese, and crema.", 10.99, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Breakfast Parfait", "Layered Greek yogurt, granola, and fresh berries.", 7.49, imgBreakfast, "Breakfast");
-        insertFoodItem(db, "Sausage & Egg Platter", "Two eggs, sausage links, hash browns, and toast.", 11.99, imgBreakfast, "Breakfast");
+        // Breakfast - each with unique icon
+        insertFoodItem(db, "Pancakes", "Stack of fluffy buttermilk pancakes with maple syrup and butter.", 8.99, getDrawableId("ic_food_pancake"), "Breakfast");
+        insertFoodItem(db, "Eggs Benedict", "Poached eggs on English muffin with Canadian bacon and hollandaise.", 12.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Avocado Toast", "Sourdough toast with smashed avocado, cherry tomatoes, and feta.", 9.49, getDrawableId("ic_food_bread"), "Breakfast");
+        insertFoodItem(db, "Full English Breakfast", "Eggs, bacon, sausage, beans, tomatoes, mushrooms, and toast.", 14.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Omelette", "Three-egg omelette with your choice of cheese, veggies, and meat.", 10.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Waffles", "Belgian waffles with whipped cream and fresh berries.", 9.99, getDrawableId("ic_food_waffle"), "Breakfast");
+        insertFoodItem(db, "French Toast", "Brioche French toast with cinnamon and powdered sugar.", 8.49, getDrawableId("ic_food_pancake"), "Breakfast");
+        insertFoodItem(db, "Breakfast Burrito", "Scrambled eggs, cheese, potatoes, and salsa in a flour tortilla.", 10.49, getDrawableId("ic_food_tacos"), "Breakfast");
+        insertFoodItem(db, "Granola & Yogurt", "House granola with Greek yogurt and seasonal fruit.", 7.99, getDrawableId("ic_food_oatmeal"), "Breakfast");
+        insertFoodItem(db, "Croissant & Jam", "Fresh butter croissant with strawberry or apricot jam.", 5.49, getDrawableId("ic_food_croissant"), "Breakfast");
+        insertFoodItem(db, "Scrambled Eggs & Bacon", "Fluffy scrambled eggs with crispy bacon and toast.", 9.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Breakfast Bowl", "Quinoa, black beans, avocado, egg, and salsa.", 11.49, getDrawableId("ic_food_rice"), "Breakfast");
+        insertFoodItem(db, "Smoked Salmon Bagel", "Toasted bagel with cream cheese, capers, and smoked salmon.", 12.99, getDrawableId("ic_food_bagel"), "Breakfast");
+        insertFoodItem(db, "Huevos Rancheros", "Fried eggs on tortillas with ranchero sauce, beans, and cheese.", 10.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Steel-Cut Oatmeal", "Oatmeal with brown sugar, berries, and nuts.", 7.49, getDrawableId("ic_food_oatmeal"), "Breakfast");
+        insertFoodItem(db, "Breakfast Quesadilla", "Flour tortilla with eggs, cheese, and chorizo.", 9.49, getDrawableId("ic_food_tacos"), "Breakfast");
+        insertFoodItem(db, "Belgian Waffle Combo", "Waffle with two eggs and your choice of bacon or sausage.", 13.99, getDrawableId("ic_food_waffle"), "Breakfast");
+        insertFoodItem(db, "Fruit Parfait", "Layers of yogurt, granola, and fresh seasonal fruit.", 8.49, getDrawableId("ic_food_smoothie"), "Breakfast");
+        insertFoodItem(db, "Breakfast Sandwich", "Egg, cheese, and choice of meat on English muffin or croissant.", 8.99, getDrawableId("ic_food_sandwich"), "Breakfast");
+        insertFoodItem(db, "Cinnamon Roll", "Warm cinnamon roll with cream cheese frosting.", 6.99, getDrawableId("ic_food_croissant"), "Breakfast");
+        insertFoodItem(db, "Eggs Florentine", "Poached eggs on spinach and English muffin with hollandaise.", 11.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Breakfast Skillet", "Potatoes, eggs, cheese, and choice of meat in a cast-iron skillet.", 12.49, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Banana Bread", "Fresh-baked banana bread with walnuts, served warm.", 5.99, getDrawableId("ic_food_bread"), "Breakfast");
+        insertFoodItem(db, "Protein Bowl", "Eggs, quinoa, black beans, avocado, and salsa.", 11.99, getDrawableId("ic_food_rice"), "Breakfast");
+        insertFoodItem(db, "Breakfast Tacos", "Three soft tacos with eggs, cheese, and choice of bacon or chorizo.", 9.99, getDrawableId("ic_food_tacos"), "Breakfast");
+        insertFoodItem(db, "Overnight Oats", "Oats soaked in milk with berries, nuts, and honey.", 6.49, getDrawableId("ic_food_oatmeal"), "Breakfast");
+        insertFoodItem(db, "Eggs in a Basket", "Egg fried in the center of buttered toast.", 7.49, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Breakfast Potatoes", "Seasoned roasted breakfast potatoes with onions and peppers.", 4.99, getDrawableId("ic_food_potato"), "Breakfast");
+        insertFoodItem(db, "Blueberry Pancakes", "Stack of pancakes loaded with fresh blueberries and maple syrup.", 9.49, getDrawableId("ic_food_pancake"), "Breakfast");
+        insertFoodItem(db, "Chocolate Chip Waffles", "Belgian waffles with chocolate chips and whipped cream.", 10.49, getDrawableId("ic_food_waffle"), "Breakfast");
+        insertFoodItem(db, "Shakshuka", "Eggs poached in spiced tomato and pepper sauce with bread.", 11.99, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Breakfast Hash", "Crispy potatoes, onions, peppers, and choice of meat with eggs.", 10.99, getDrawableId("ic_food_potato"), "Breakfast");
+        insertFoodItem(db, "Muesli", "Swiss-style muesli with oats, nuts, dried fruit, and milk or yogurt.", 7.99, getDrawableId("ic_food_oatmeal"), "Breakfast");
+        insertFoodItem(db, "Egg White Omelette", "Fluffy egg white omelette with vegetables and feta.", 10.49, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Biscuits and Gravy", "Flaky biscuits smothered in creamy sausage gravy.", 8.99, getDrawableId("ic_food_bread"), "Breakfast");
+        insertFoodItem(db, "Breakfast Wrap", "Scrambled eggs, cheese, and veggies in a flour tortilla.", 8.49, getDrawableId("ic_food_sandwich"), "Breakfast");
+        insertFoodItem(db, "French Toast Sticks", "Crispy French toast sticks with maple syrup for dipping.", 7.99, getDrawableId("ic_food_pancake"), "Breakfast");
+        insertFoodItem(db, "Acai Bowl", "Blended acai topped with granola, banana, and honey.", 9.99, getDrawableId("ic_food_smoothie"), "Breakfast");
+        insertFoodItem(db, "Corned Beef Hash", "Crispy corned beef hash with onions and two eggs any style.", 12.49, getDrawableId("ic_food_egg"), "Breakfast");
+        insertFoodItem(db, "Chilaquiles", "Tortilla chips in salsa with eggs, cheese, and crema.", 10.99, getDrawableId("ic_food_tacos"), "Breakfast");
+        insertFoodItem(db, "Breakfast Parfait", "Layered Greek yogurt, granola, and fresh berries.", 7.49, getDrawableId("ic_food_smoothie"), "Breakfast");
+        insertFoodItem(db, "Sausage & Egg Platter", "Two eggs, sausage links, hash browns, and toast.", 11.99, getDrawableId("ic_food_egg"), "Breakfast");
 
-        // Seafood
-        insertFoodItem(db, "Grilled Shrimp", "Jumbo shrimp grilled with garlic butter and lemon.", 18.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Fish Tacos", "Beer-battered white fish in soft tortillas with slaw and lime crema.", 13.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Lobster Tail", "Broiled lobster tail with drawn butter and lemon.", 34.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Crab Cakes", "Two golden crab cakes with remoulade and lemon.", 16.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Calamari", "Crispy fried calamari with marinara and lemon aioli.", 12.49, imgSeafood, "Seafood");
-        insertFoodItem(db, "Seafood Paella", "Saffron rice with shrimp, mussels, clams, and chorizo.", 24.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Grilled Salmon", "Atlantic salmon with herb butter and seasonal vegetables.", 22.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Shrimp Scampi", "Shrimp in garlic white wine sauce over linguine.", 19.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Clam Chowder", "New England style creamy clam chowder with bacon.", 8.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Tuna Steak", "Seared tuna steak with ginger soy glaze and edamame.", 23.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Mussels in White Wine", "Steamed mussels in garlic white wine broth with bread.", 16.49, imgSeafood, "Seafood");
-        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with fries, coleslaw, and tartar sauce.", 15.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Cajun Shrimp", "Spicy Cajun-seasoned shrimp with rice and vegetables.", 19.49, imgSeafood, "Seafood");
-        insertFoodItem(db, "Lobster Roll", "Chilled lobster meat in buttered roll with mayo and celery.", 26.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Sushi Platter", "Assorted nigiri and maki with soy sauce and wasabi.", 28.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Coconut Shrimp", "Crispy coconut-battered shrimp with sweet chili sauce.", 17.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Grilled Swordfish", "Swordfish steak with lemon herb butter and vegetables.", 24.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Seafood Linguine", "Linguine with shrimp, scallops, and clams in garlic tomato sauce.", 22.49, imgSeafood, "Seafood");
-        insertFoodItem(db, "Oysters Rockefeller", "Baked oysters with spinach, cheese, and breadcrumbs.", 18.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Grilled Mahi-Mahi", "Mahi-mahi with mango salsa and coconut rice.", 21.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Ceviche", "Fresh raw fish cured in citrus with onion, cilantro, and avocado.", 14.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Shrimp & Grits", "Sautéed shrimp over creamy stone-ground grits.", 17.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Baked Cod", "Atlantic cod with lemon, herbs, and breadcrumb topping.", 18.49, imgSeafood, "Seafood");
-        insertFoodItem(db, "Seafood Bisque", "Rich creamy soup with lobster, shrimp, and crab.", 10.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Scallops", "Pan-seared sea scallops with brown butter and capers.", 26.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Crab Legs", "Steamed snow crab legs with drawn butter.", 32.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Fish Curry", "White fish in coconut curry with vegetables and rice.", 16.99, imgSeafood, "Seafood");
-        insertFoodItem(db, "Garlic Butter Shrimp", "Sautéed shrimp in garlic butter with crusty bread.", 19.49, imgSeafood, "Seafood");
+        // Seafood - each with unique icon
+        insertFoodItem(db, "Grilled Shrimp", "Jumbo shrimp grilled with garlic butter and lemon.", 18.99, getDrawableId("ic_food_shrimp"), "Seafood");
+        insertFoodItem(db, "Fish Tacos", "Beer-battered white fish in soft tortillas with slaw and lime crema.", 13.99, getDrawableId("ic_food_tacos"), "Seafood");
+        insertFoodItem(db, "Lobster Tail", "Broiled lobster tail with drawn butter and lemon.", 34.99, getDrawableId("ic_food_lobster"), "Seafood");
+        insertFoodItem(db, "Crab Cakes", "Two golden crab cakes with remoulade and lemon.", 16.99, getDrawableId("ic_food_crab"), "Seafood");
+        insertFoodItem(db, "Calamari", "Crispy fried calamari with marinara and lemon aioli.", 12.49, getDrawableId("ic_food_calamari"), "Seafood");
+        insertFoodItem(db, "Seafood Paella", "Saffron rice with shrimp, mussels, clams, and chorizo.", 24.99, getDrawableId("ic_food_rice"), "Seafood");
+        insertFoodItem(db, "Grilled Salmon", "Atlantic salmon with herb butter and seasonal vegetables.", 22.99, getDrawableId("ic_food_salmon"), "Seafood");
+        insertFoodItem(db, "Shrimp Scampi", "Shrimp in garlic white wine sauce over linguine.", 19.99, getDrawableId("ic_food_shrimp"), "Seafood");
+        insertFoodItem(db, "Clam Chowder", "New England style creamy clam chowder with bacon.", 8.99, getDrawableId("ic_food_soup"), "Seafood");
+        insertFoodItem(db, "Tuna Steak", "Seared tuna steak with ginger soy glaze and edamame.", 23.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Mussels in White Wine", "Steamed mussels in garlic white wine broth with bread.", 16.49, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with fries, coleslaw, and tartar sauce.", 15.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Cajun Shrimp", "Spicy Cajun-seasoned shrimp with rice and vegetables.", 19.49, getDrawableId("ic_food_shrimp"), "Seafood");
+        insertFoodItem(db, "Lobster Roll", "Chilled lobster meat in buttered roll with mayo and celery.", 26.99, getDrawableId("ic_food_lobster"), "Seafood");
+        insertFoodItem(db, "Sushi Platter", "Assorted nigiri and maki with soy sauce and wasabi.", 28.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Coconut Shrimp", "Crispy coconut-battered shrimp with sweet chili sauce.", 17.99, getDrawableId("ic_food_shrimp"), "Seafood");
+        insertFoodItem(db, "Grilled Swordfish", "Swordfish steak with lemon herb butter and vegetables.", 24.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Seafood Linguine", "Linguine with shrimp, scallops, and clams in garlic tomato sauce.", 22.49, getDrawableId("ic_food_pasta"), "Seafood");
+        insertFoodItem(db, "Oysters Rockefeller", "Baked oysters with spinach, cheese, and breadcrumbs.", 18.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Grilled Mahi-Mahi", "Mahi-mahi with mango salsa and coconut rice.", 21.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Ceviche", "Fresh raw fish cured in citrus with onion, cilantro, and avocado.", 14.99, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Shrimp & Grits", "Sautéed shrimp over creamy stone-ground grits.", 17.99, getDrawableId("ic_food_shrimp"), "Seafood");
+        insertFoodItem(db, "Baked Cod", "Atlantic cod with lemon, herbs, and breadcrumb topping.", 18.49, getDrawableId("ic_food_fish"), "Seafood");
+        insertFoodItem(db, "Seafood Bisque", "Rich creamy soup with lobster, shrimp, and crab.", 10.99, getDrawableId("ic_food_soup"), "Seafood");
+        insertFoodItem(db, "Scallops", "Pan-seared sea scallops with brown butter and capers.", 26.99, getDrawableId("ic_food_shrimp"), "Seafood");
+        insertFoodItem(db, "Crab Legs", "Steamed snow crab legs with drawn butter.", 32.99, getDrawableId("ic_food_crab"), "Seafood");
+        insertFoodItem(db, "Fish Curry", "White fish in coconut curry with vegetables and rice.", 16.99, getDrawableId("ic_food_curry"), "Seafood");
+        insertFoodItem(db, "Garlic Butter Shrimp", "Sautéed shrimp in garlic butter with crusty bread.", 19.49, getDrawableId("ic_food_shrimp"), "Seafood");
 
-        // Salads
-        insertFoodItem(db, "Caesar Salad", "Crisp romaine with parmesan, croutons, and classic Caesar dressing.", 8.99, imgSalads, "Salads");
-        insertFoodItem(db, "Greek Salad", "Cucumbers, tomatoes, olives, feta, and red onion with oregano dressing.", 9.49, imgSalads, "Salads");
-        insertFoodItem(db, "Garden Salad", "Mixed greens with tomatoes, cucumber, carrots, and choice of dressing.", 7.99, imgSalads, "Salads");
-        insertFoodItem(db, "Cobb Salad", "Chicken, bacon, egg, avocado, blue cheese, and tomato on mixed greens.", 12.99, imgSalads, "Salads");
-        insertFoodItem(db, "Asian Chicken Salad", "Shredded chicken, cabbage, carrots, and sesame ginger dressing.", 11.49, imgSalads, "Salads");
-        insertFoodItem(db, "Caprese Salad", "Fresh mozzarella, tomatoes, and basil with balsamic glaze.", 10.99, imgSalads, "Salads");
-        insertFoodItem(db, "Quinoa Salad", "Quinoa with roasted vegetables, feta, and lemon herb dressing.", 10.49, imgSalads, "Salads");
-        insertFoodItem(db, "Waldorf Salad", "Apples, walnuts, celery, and grapes in creamy dressing.", 9.99, imgSalads, "Salads");
-        insertFoodItem(db, "Nicoise Salad", "Tuna, green beans, egg, olives, and potatoes with vinaigrette.", 13.99, imgSalads, "Salads");
-        insertFoodItem(db, "Kale Salad", "Massaged kale with cranberries, almonds, and tahini dressing.", 9.49, imgSalads, "Salads");
-        insertFoodItem(db, "Southwest Salad", "Mixed greens with black beans, corn, avocado, and chipotle ranch.", 11.99, imgSalads, "Salads");
-        insertFoodItem(db, "Mediterranean Salad", "Cucumber, tomato, olives, feta, and lemon oregano dressing.", 10.49, imgSalads, "Salads");
-        insertFoodItem(db, "Spinach Salad", "Baby spinach with strawberries, goat cheese, and balsamic.", 9.99, imgSalads, "Salads");
-        insertFoodItem(db, "Taco Salad", "Seasoned beef, lettuce, cheese, salsa, and sour cream in a tortilla bowl.", 12.49, imgSalads, "Salads");
-        insertFoodItem(db, "Chicken Caesar Wrap", "Caesar salad with grilled chicken in a flour tortilla.", 10.99, imgSalads, "Salads");
-        insertFoodItem(db, "Fattoush", "Middle Eastern salad with cucumber, tomato, pita, and sumac dressing.", 9.49, imgSalads, "Salads");
-        insertFoodItem(db, "Arugula & Pear", "Arugula with pear, walnuts, and blue cheese vinaigrette.", 10.99, imgSalads, "Salads");
-        insertFoodItem(db, "Asian Slaw", "Shredded cabbage and carrots with sesame ginger dressing.", 7.49, imgSalads, "Salads");
-        insertFoodItem(db, "Beet & Goat Cheese", "Roasted beets, goat cheese, arugula, and balsamic glaze.", 11.49, imgSalads, "Salads");
-        insertFoodItem(db, "Chicken Salad", "Diced chicken with celery, grapes, and mayo on mixed greens.", 10.99, imgSalads, "Salads");
-        insertFoodItem(db, "Tuna Salad", "Flaked tuna with celery and mayo, served on lettuce or in a wrap.", 9.99, imgSalads, "Salads");
-        insertFoodItem(db, "Watermelon Feta Salad", "Watermelon, feta, mint, and balsamic reduction.", 9.49, imgSalads, "Salads");
-        insertFoodItem(db, "Broccoli Salad", "Fresh broccoli with raisins, bacon, and creamy dressing.", 8.99, imgSalads, "Salads");
-        insertFoodItem(db, "Coleslaw Salad", "Shredded cabbage and carrots with tangy coleslaw dressing.", 6.99, imgSalads, "Salads");
-        insertFoodItem(db, "Antipasto Salad", "Mixed greens with salami, olives, cheese, and Italian dressing.", 12.49, imgSalads, "Salads");
-        insertFoodItem(db, "Edamame Salad", "Edamame, cucumber, and sesame with ginger soy dressing.", 8.49, imgSalads, "Salads");
-        insertFoodItem(db, "Roasted Vegetable Salad", "Warm roasted vegetables over greens with balsamic.", 10.99, imgSalads, "Salads");
-        insertFoodItem(db, "Summer Salad", "Mixed greens with strawberries, pecans, and poppy seed dressing.", 9.99, imgSalads, "Salads");
+        // Salads - each with unique icon
+        insertFoodItem(db, "Caesar Salad", "Crisp romaine with parmesan, croutons, and classic Caesar dressing.", 8.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Greek Salad", "Cucumbers, tomatoes, olives, feta, and red onion with oregano dressing.", 9.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Garden Salad", "Mixed greens with tomatoes, cucumber, carrots, and choice of dressing.", 7.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Cobb Salad", "Chicken, bacon, egg, avocado, blue cheese, and tomato on mixed greens.", 12.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Asian Chicken Salad", "Shredded chicken, cabbage, carrots, and sesame ginger dressing.", 11.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Caprese Salad", "Fresh mozzarella, tomatoes, and basil with balsamic glaze.", 10.99, getDrawableId("ic_food_cheese"), "Salads");
+        insertFoodItem(db, "Quinoa Salad", "Quinoa with roasted vegetables, feta, and lemon herb dressing.", 10.49, getDrawableId("ic_food_rice"), "Salads");
+        insertFoodItem(db, "Waldorf Salad", "Apples, walnuts, celery, and grapes in creamy dressing.", 9.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Nicoise Salad", "Tuna, green beans, egg, olives, and potatoes with vinaigrette.", 13.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Kale Salad", "Massaged kale with cranberries, almonds, and tahini dressing.", 9.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Southwest Salad", "Mixed greens with black beans, corn, avocado, and chipotle ranch.", 11.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Mediterranean Salad", "Cucumber, tomato, olives, feta, and lemon oregano dressing.", 10.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Spinach Salad", "Baby spinach with strawberries, goat cheese, and balsamic.", 9.99, getDrawableId("ic_food_vegetables"), "Salads");
+        insertFoodItem(db, "Taco Salad", "Seasoned beef, lettuce, cheese, salsa, and sour cream in a tortilla bowl.", 12.49, getDrawableId("ic_food_tacos"), "Salads");
+        insertFoodItem(db, "Chicken Caesar Wrap", "Caesar salad with grilled chicken in a flour tortilla.", 10.99, getDrawableId("ic_food_sandwich"), "Salads");
+        insertFoodItem(db, "Fattoush", "Middle Eastern salad with cucumber, tomato, pita, and sumac dressing.", 9.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Arugula & Pear", "Arugula with pear, walnuts, and blue cheese vinaigrette.", 10.99, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Asian Slaw", "Shredded cabbage and carrots with sesame ginger dressing.", 7.49, getDrawableId("ic_food_coleslaw"), "Salads");
+        insertFoodItem(db, "Beet & Goat Cheese", "Roasted beets, goat cheese, arugula, and balsamic glaze.", 11.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Chicken Salad", "Diced chicken with celery, grapes, and mayo on mixed greens.", 10.99, getDrawableId("ic_food_chicken"), "Salads");
+        insertFoodItem(db, "Tuna Salad", "Flaked tuna with celery and mayo, served on lettuce or in a wrap.", 9.99, getDrawableId("ic_food_fish"), "Salads");
+        insertFoodItem(db, "Watermelon Feta Salad", "Watermelon, feta, mint, and balsamic reduction.", 9.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Broccoli Salad", "Fresh broccoli with raisins, bacon, and creamy dressing.", 8.99, getDrawableId("ic_food_vegetables"), "Salads");
+        insertFoodItem(db, "Coleslaw Salad", "Shredded cabbage and carrots with tangy coleslaw dressing.", 6.99, getDrawableId("ic_food_coleslaw"), "Salads");
+        insertFoodItem(db, "Antipasto Salad", "Mixed greens with salami, olives, cheese, and Italian dressing.", 12.49, getDrawableId("ic_food_salad_bowl"), "Salads");
+        insertFoodItem(db, "Edamame Salad", "Edamame, cucumber, and sesame with ginger soy dressing.", 8.49, getDrawableId("ic_food_beans"), "Salads");
+        insertFoodItem(db, "Roasted Vegetable Salad", "Warm roasted vegetables over greens with balsamic.", 10.99, getDrawableId("ic_food_vegetables"), "Salads");
+        insertFoodItem(db, "Summer Salad", "Mixed greens with strawberries, pecans, and poppy seed dressing.", 9.99, getDrawableId("ic_food_salad_bowl"), "Salads");
     }
 
     private void insertFoodItem(SQLiteDatabase db, String name, String description, double price, int imageResId, String category) {
