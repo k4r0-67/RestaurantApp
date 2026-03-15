@@ -720,6 +720,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFoodItem(db, "Overnight Oats", "Oats soaked in milk with berries, nuts, and honey.", 6.49, imgBreakfast, "Breakfast");
         insertFoodItem(db, "Eggs in a Basket", "Egg fried in the center of buttered toast.", 7.49, imgBreakfast, "Breakfast");
         insertFoodItem(db, "Breakfast Potatoes", "Seasoned roasted breakfast potatoes with onions and peppers.", 4.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Blueberry Pancakes", "Stack of pancakes loaded with fresh blueberries and maple syrup.", 9.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Chocolate Chip Waffles", "Belgian waffles with chocolate chips and whipped cream.", 10.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Shakshuka", "Eggs poached in spiced tomato and pepper sauce with bread.", 11.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Breakfast Hash", "Crispy potatoes, onions, peppers, and choice of meat with eggs.", 10.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Muesli", "Swiss-style muesli with oats, nuts, dried fruit, and milk or yogurt.", 7.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Egg White Omelette", "Fluffy egg white omelette with vegetables and feta.", 10.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Biscuits and Gravy", "Flaky biscuits smothered in creamy sausage gravy.", 8.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Breakfast Wrap", "Scrambled eggs, cheese, and veggies in a flour tortilla.", 8.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "French Toast Sticks", "Crispy French toast sticks with maple syrup for dipping.", 7.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Acai Bowl", "Blended acai topped with granola, banana, and honey.", 9.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Corned Beef Hash", "Crispy corned beef hash with onions and two eggs any style.", 12.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Chilaquiles", "Tortilla chips in salsa with eggs, cheese, and crema.", 10.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Breakfast Parfait", "Layered Greek yogurt, granola, and fresh berries.", 7.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Sausage & Egg Platter", "Two eggs, sausage links, hash browns, and toast.", 11.99, imgBreakfast, "Breakfast");
 
         // Seafood
         insertFoodItem(db, "Grilled Shrimp", "Jumbo shrimp grilled with garlic butter and lemon.", 18.99, imgSeafood, "Seafood");
