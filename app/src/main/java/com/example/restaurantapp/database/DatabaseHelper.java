@@ -27,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database info
     private static final String DATABASE_NAME = "RestaurantApp.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table names
     public static final String TABLE_USERS = "users";
@@ -158,12 +158,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER_ITEMS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART_ITEMS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD_ITEMS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        onCreate(db);
+        // Refresh menu items when upgrading so new food items appear without losing user data
+        if (oldVersion < 2) {
+            db.delete(TABLE_CART_ITEMS, null, null);  // Clear cart so it doesn't reference old food IDs
+            db.delete(TABLE_FOOD_ITEMS, null, null);
+            populateSampleFoodItems(db);
+        }
+        // For older upgrade path (full wipe), uncomment below and remove the if block above:
+        // db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDER_ITEMS);
+        // db.execSQL("DROP TABLE IF EXISTS " + TABLE_ORDERS);
+        // db.execSQL("DROP TABLE IF EXISTS " + TABLE_CART_ITEMS);
+        // db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD_ITEMS);
+        // db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        // onCreate(db);
     }
 
     // ===================== USER OPERATIONS =====================
