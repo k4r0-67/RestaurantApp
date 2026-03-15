@@ -67,7 +67,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
         holder.tvName.setText(item.getName());
         holder.tvDescription.setText(item.getDescription());
         holder.tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", item.getPrice()));
-        holder.ivFood.setImageResource(R.drawable.ic_food_placeholder);
+        int imageResId = item.getImageResId();
+        holder.ivFood.setImageResource(imageResId != 0 ? imageResId : R.drawable.ic_food_placeholder);
 
         holder.itemView.setOnClickListener(v -> clickListener.onItemClick(item));
         holder.btnAddToCart.setOnClickListener(v -> addToCartListener.onAddToCart(item));

@@ -23,6 +23,8 @@ import java.util.Locale;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private final Context context;
+
     // Database info
     private static final String DATABASE_NAME = "RestaurantApp.db";
     private static final int DATABASE_VERSION = 1;
@@ -122,6 +124,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context.getApplicationContext();
+    }
+
+    /**
+     * Returns the drawable resource ID for a food category, or 0 if not found.
+     */
+    private int getDrawableIdForCategory(String category) {
+        String drawableName;
+        switch (category) {
+            case "Appetizers": drawableName = "ic_food_appetizer"; break;
+            case "Main Course": drawableName = "ic_food_main"; break;
+            case "Desserts": drawableName = "ic_food_dessert"; break;
+            case "Beverages": drawableName = "ic_food_beverage"; break;
+            default: return 0;
+        }
+        return context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
     }
 
     @Override
@@ -574,55 +592,70 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Pre-populate the food_items table with sample menu data.
      */
     private void populateSampleFoodItems(SQLiteDatabase db) {
+        int imgAppetizer = getDrawableIdForCategory("Appetizers");
+        int imgMain = getDrawableIdForCategory("Main Course");
+        int imgDessert = getDrawableIdForCategory("Desserts");
+        int imgBeverage = getDrawableIdForCategory("Beverages");
+
         // Appetizers
-        insertFoodItem(db, "Spring Rolls", "Crispy fried rolls filled with vegetables and served with sweet chili sauce.", 6.99, 0, "Appetizers");
-        insertFoodItem(db, "Chicken Soup", "Hearty homemade chicken soup with vegetables and herbs.", 5.49, 0, "Appetizers");
-        insertFoodItem(db, "Bruschetta", "Toasted bread topped with fresh tomatoes, garlic, basil, and olive oil.", 7.99, 0, "Appetizers");
-        insertFoodItem(db, "Mozzarella Sticks", "Golden-fried mozzarella sticks served with marinara sauce.", 8.49, 0, "Appetizers");
-        insertFoodItem(db, "Chicken Wings", "Crispy chicken wings tossed in your choice of buffalo or BBQ sauce.", 11.99, 0, "Appetizers");
-        insertFoodItem(db, "Hummus & Pita", "Creamy chickpea hummus with warm pita bread and olive oil.", 6.49, 0, "Appetizers");
-        insertFoodItem(db, "Caesar Salad", "Crisp romaine lettuce with parmesan, croutons, and classic Caesar dressing.", 8.99, 0, "Appetizers");
-        insertFoodItem(db, "Shrimp Cocktail", "Chilled shrimp served with tangy cocktail sauce and lemon.", 12.49, 0, "Appetizers");
-        insertFoodItem(db, "Stuffed Mushrooms", "Baked mushrooms stuffed with cream cheese, garlic, and herbs.", 9.99, 0, "Appetizers");
-        insertFoodItem(db, "Nachos", "Tortilla chips topped with cheese, jalapeños, sour cream, and guacamole.", 10.49, 0, "Appetizers");
+        insertFoodItem(db, "Spring Rolls", "Crispy fried rolls filled with vegetables and served with sweet chili sauce.", 6.99, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Chicken Soup", "Hearty homemade chicken soup with vegetables and herbs.", 5.49, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Bruschetta", "Toasted bread topped with fresh tomatoes, garlic, basil, and olive oil.", 7.99, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Mozzarella Sticks", "Golden-fried mozzarella sticks served with marinara sauce.", 8.49, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Chicken Wings", "Crispy chicken wings tossed in your choice of buffalo or BBQ sauce.", 11.99, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Hummus & Pita", "Creamy chickpea hummus with warm pita bread and olive oil.", 6.49, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Caesar Salad", "Crisp romaine lettuce with parmesan, croutons, and classic Caesar dressing.", 8.99, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Shrimp Cocktail", "Chilled shrimp served with tangy cocktail sauce and lemon.", 12.49, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Stuffed Mushrooms", "Baked mushrooms stuffed with cream cheese, garlic, and herbs.", 9.99, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Nachos", "Tortilla chips topped with cheese, jalapeños, sour cream, and guacamole.", 10.49, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Greek Salad", "Fresh cucumbers, tomatoes, olives, feta cheese, and red onion with oregano dressing.", 8.49, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Garlic Bread", "Toasted baguette with butter and roasted garlic, topped with parsley.", 5.99, imgAppetizer, "Appetizers");
+        insertFoodItem(db, "Onion Rings", "Crispy beer-battered onion rings with ranch or ketchup.", 7.49, imgAppetizer, "Appetizers");
 
         // Main Course
-        insertFoodItem(db, "Grilled Chicken", "Juicy grilled chicken breast with herbs, served with seasonal vegetables.", 14.99, 0, "Main Course");
-        insertFoodItem(db, "Spaghetti Carbonara", "Classic Italian pasta with creamy egg sauce, pancetta, and Parmesan.", 13.99, 0, "Main Course");
-        insertFoodItem(db, "Ribeye Steak", "Premium 12oz ribeye steak cooked to your preference with garlic butter.", 28.99, 0, "Main Course");
-        insertFoodItem(db, "Classic Burger", "Beef patty with lettuce, tomato, cheese, and special sauce on a brioche bun.", 12.99, 0, "Main Course");
-        insertFoodItem(db, "Margherita Pizza", "Classic pizza with fresh mozzarella, tomato sauce, and basil.", 14.49, 0, "Main Course");
-        insertFoodItem(db, "Salmon Fillet", "Pan-seared salmon with lemon butter sauce and asparagus.", 19.99, 0, "Main Course");
-        insertFoodItem(db, "Veggie Stir Fry", "Fresh seasonal vegetables stir-fried in savory sauce, served over rice.", 11.99, 0, "Main Course");
-        insertFoodItem(db, "Chicken Parmesan", "Breaded chicken breast with marinara and melted mozzarella over spaghetti.", 16.99, 0, "Main Course");
-        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with crispy fries, coleslaw, and tartar sauce.", 15.49, 0, "Main Course");
-        insertFoodItem(db, "Beef Tacos", "Three soft tacos with seasoned beef, lettuce, cheese, and salsa.", 11.49, 0, "Main Course");
-        insertFoodItem(db, "Lamb Chops", "Grilled lamb chops with mint sauce and roasted potatoes.", 24.99, 0, "Main Course");
-        insertFoodItem(db, "Vegetable Curry", "Creamy coconut curry with mixed vegetables and basmati rice.", 13.49, 0, "Main Course");
+        insertFoodItem(db, "Grilled Chicken", "Juicy grilled chicken breast with herbs, served with seasonal vegetables.", 14.99, imgMain, "Main Course");
+        insertFoodItem(db, "Spaghetti Carbonara", "Classic Italian pasta with creamy egg sauce, pancetta, and Parmesan.", 13.99, imgMain, "Main Course");
+        insertFoodItem(db, "Ribeye Steak", "Premium 12oz ribeye steak cooked to your preference with garlic butter.", 28.99, imgMain, "Main Course");
+        insertFoodItem(db, "Classic Burger", "Beef patty with lettuce, tomato, cheese, and special sauce on a brioche bun.", 12.99, imgMain, "Main Course");
+        insertFoodItem(db, "Margherita Pizza", "Classic pizza with fresh mozzarella, tomato sauce, and basil.", 14.49, imgMain, "Main Course");
+        insertFoodItem(db, "Salmon Fillet", "Pan-seared salmon with lemon butter sauce and asparagus.", 19.99, imgMain, "Main Course");
+        insertFoodItem(db, "Veggie Stir Fry", "Fresh seasonal vegetables stir-fried in savory sauce, served over rice.", 11.99, imgMain, "Main Course");
+        insertFoodItem(db, "Chicken Parmesan", "Breaded chicken breast with marinara and melted mozzarella over spaghetti.", 16.99, imgMain, "Main Course");
+        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with crispy fries, coleslaw, and tartar sauce.", 15.49, imgMain, "Main Course");
+        insertFoodItem(db, "Beef Tacos", "Three soft tacos with seasoned beef, lettuce, cheese, and salsa.", 11.49, imgMain, "Main Course");
+        insertFoodItem(db, "Lamb Chops", "Grilled lamb chops with mint sauce and roasted potatoes.", 24.99, imgMain, "Main Course");
+        insertFoodItem(db, "Vegetable Curry", "Creamy coconut curry with mixed vegetables and basmati rice.", 13.49, imgMain, "Main Course");
+        insertFoodItem(db, "BBQ Ribs", "Slow-cooked pork ribs with house BBQ sauce and coleslaw.", 22.99, imgMain, "Main Course");
+        insertFoodItem(db, "Pad Thai", "Stir-fried rice noodles with shrimp, peanuts, and tamarind sauce.", 14.99, imgMain, "Main Course");
+        insertFoodItem(db, "Lasagna", "Layers of pasta, beef ragù, béchamel, and melted cheese.", 15.99, imgMain, "Main Course");
 
         // Desserts
-        insertFoodItem(db, "Chocolate Lava Cake", "Warm chocolate cake with a gooey molten center, served with vanilla ice cream.", 7.99, 0, "Desserts");
-        insertFoodItem(db, "Vanilla Ice Cream", "Three scoops of premium vanilla ice cream with your choice of toppings.", 5.49, 0, "Desserts");
-        insertFoodItem(db, "Tiramisu", "Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream.", 8.49, 0, "Desserts");
-        insertFoodItem(db, "Cheesecake", "New York-style cheesecake with strawberry topping on a graham cracker crust.", 7.49, 0, "Desserts");
-        insertFoodItem(db, "Crème Brûlée", "Classic French vanilla custard with a caramelized sugar topping.", 8.99, 0, "Desserts");
-        insertFoodItem(db, "Brownie Sundae", "Warm chocolate brownie with ice cream, whipped cream, and chocolate sauce.", 7.49, 0, "Desserts");
-        insertFoodItem(db, "Apple Pie", "Classic apple pie with cinnamon, served warm with vanilla ice cream.", 6.99, 0, "Desserts");
-        insertFoodItem(db, "Panna Cotta", "Silky vanilla panna cotta with berry compote.", 7.99, 0, "Desserts");
-        insertFoodItem(db, "Churros", "Crispy fried dough with cinnamon sugar and chocolate dipping sauce.", 6.49, 0, "Desserts");
-        insertFoodItem(db, "Key Lime Pie", "Tangy key lime pie with graham cracker crust and whipped cream.", 7.99, 0, "Desserts");
+        insertFoodItem(db, "Chocolate Lava Cake", "Warm chocolate cake with a gooey molten center, served with vanilla ice cream.", 7.99, imgDessert, "Desserts");
+        insertFoodItem(db, "Vanilla Ice Cream", "Three scoops of premium vanilla ice cream with your choice of toppings.", 5.49, imgDessert, "Desserts");
+        insertFoodItem(db, "Tiramisu", "Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream.", 8.49, imgDessert, "Desserts");
+        insertFoodItem(db, "Cheesecake", "New York-style cheesecake with strawberry topping on a graham cracker crust.", 7.49, imgDessert, "Desserts");
+        insertFoodItem(db, "Crème Brûlée", "Classic French vanilla custard with a caramelized sugar topping.", 8.99, imgDessert, "Desserts");
+        insertFoodItem(db, "Brownie Sundae", "Warm chocolate brownie with ice cream, whipped cream, and chocolate sauce.", 7.49, imgDessert, "Desserts");
+        insertFoodItem(db, "Apple Pie", "Classic apple pie with cinnamon, served warm with vanilla ice cream.", 6.99, imgDessert, "Desserts");
+        insertFoodItem(db, "Panna Cotta", "Silky vanilla panna cotta with berry compote.", 7.99, imgDessert, "Desserts");
+        insertFoodItem(db, "Churros", "Crispy fried dough with cinnamon sugar and chocolate dipping sauce.", 6.49, imgDessert, "Desserts");
+        insertFoodItem(db, "Key Lime Pie", "Tangy key lime pie with graham cracker crust and whipped cream.", 7.99, imgDessert, "Desserts");
+        insertFoodItem(db, "Mousse au Chocolat", "Light and rich dark chocolate mousse with whipped cream.", 8.49, imgDessert, "Desserts");
+        insertFoodItem(db, "Baklava", "Layers of phyllo pastry with honey and walnuts.", 7.99, imgDessert, "Desserts");
 
         // Beverages
-        insertFoodItem(db, "Espresso", "Rich and bold single or double shot of espresso.", 2.99, 0, "Beverages");
-        insertFoodItem(db, "Fresh Orange Juice", "Freshly squeezed orange juice, served chilled.", 4.49, 0, "Beverages");
-        insertFoodItem(db, "Mango Smoothie", "Creamy blended mango smoothie with a hint of lime.", 5.99, 0, "Beverages");
-        insertFoodItem(db, "Lemonade", "Freshly made lemonade with mint, served over ice.", 3.99, 0, "Beverages");
-        insertFoodItem(db, "Cappuccino", "Espresso with steamed milk foam, optionally dusted with cocoa.", 4.49, 0, "Beverages");
-        insertFoodItem(db, "Iced Coffee", "Chilled coffee over ice with your choice of milk and sweetener.", 4.99, 0, "Beverages");
-        insertFoodItem(db, "Green Tea", "Premium Japanese green tea, hot or iced.", 3.49, 0, "Beverages");
-        insertFoodItem(db, "Milkshake", "Thick vanilla, chocolate, or strawberry milkshake.", 5.49, 0, "Beverages");
-        insertFoodItem(db, "Sparkling Water", "Refreshing sparkling water with a slice of lemon or lime.", 2.49, 0, "Beverages");
-        insertFoodItem(db, "Hot Chocolate", "Rich hot chocolate topped with whipped cream and marshmallows.", 4.99, 0, "Beverages");
+        insertFoodItem(db, "Espresso", "Rich and bold single or double shot of espresso.", 2.99, imgBeverage, "Beverages");
+        insertFoodItem(db, "Fresh Orange Juice", "Freshly squeezed orange juice, served chilled.", 4.49, imgBeverage, "Beverages");
+        insertFoodItem(db, "Mango Smoothie", "Creamy blended mango smoothie with a hint of lime.", 5.99, imgBeverage, "Beverages");
+        insertFoodItem(db, "Lemonade", "Freshly made lemonade with mint, served over ice.", 3.99, imgBeverage, "Beverages");
+        insertFoodItem(db, "Cappuccino", "Espresso with steamed milk foam, optionally dusted with cocoa.", 4.49, imgBeverage, "Beverages");
+        insertFoodItem(db, "Iced Coffee", "Chilled coffee over ice with your choice of milk and sweetener.", 4.99, imgBeverage, "Beverages");
+        insertFoodItem(db, "Green Tea", "Premium Japanese green tea, hot or iced.", 3.49, imgBeverage, "Beverages");
+        insertFoodItem(db, "Milkshake", "Thick vanilla, chocolate, or strawberry milkshake.", 5.49, imgBeverage, "Beverages");
+        insertFoodItem(db, "Sparkling Water", "Refreshing sparkling water with a slice of lemon or lime.", 2.49, imgBeverage, "Beverages");
+        insertFoodItem(db, "Hot Chocolate", "Rich hot chocolate topped with whipped cream and marshmallows.", 4.99, imgBeverage, "Beverages");
+        insertFoodItem(db, "Iced Tea", "Freshly brewed iced tea with lemon, sweetened or unsweetened.", 3.49, imgBeverage, "Beverages");
+        insertFoodItem(db, "Smoothie Bowl", "Blended acai or berry smoothie topped with granola and fruit.", 6.99, imgBeverage, "Beverages");
     }
 
     private void insertFoodItem(SQLiteDatabase db, String name, String description, double price, int imageResId, String category) {

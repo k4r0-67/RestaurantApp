@@ -70,7 +70,8 @@ public class FoodDetailActivity extends AppCompatActivity {
         Button btnIncrease = findViewById(R.id.btnIncrease);
         Button btnAddToCart = findViewById(R.id.btnAddToCart);
 
-        ivFood.setImageResource(R.drawable.ic_food_placeholder);
+        int imageResId = foodItem.getImageResId();
+        ivFood.setImageResource(imageResId != 0 ? imageResId : R.drawable.ic_food_placeholder);
         tvName.setText(foodItem.getName());
         tvDescription.setText(foodItem.getDescription());
         tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", foodItem.getPrice()));
