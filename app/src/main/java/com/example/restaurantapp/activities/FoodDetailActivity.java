@@ -1,6 +1,9 @@
 package com.example.restaurantapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -98,6 +101,46 @@ public class FoodDetailActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             finish();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            startActivity(new Intent(this, MenuActivity.class));
+            return true;
+        }
+        if (id == R.id.action_profile) {
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
+        }
+        if (id == R.id.action_cart) {
+            startActivity(new Intent(this, CartActivity.class));
+            return true;
+        }
+        if (id == R.id.action_orders) {
+            startActivity(new Intent(this, OrderHistoryActivity.class));
+            return true;
+        }
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        }
+        if (id == R.id.action_logout) {
+            sessionManager.clearSession();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

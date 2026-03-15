@@ -84,6 +84,9 @@
     <string name="hours_weekdays">Monday – Friday: 11:00 AM – 10:00 PM</string>
     <string name="hours_weekend">Saturday – Sunday: 10:00 AM – 11:00 PM</string>
 
+    <!-- Toolbar menu -->
+    <string name="action_search">Search</string>
+
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>
     <string name="nav_cart">Cart</string>

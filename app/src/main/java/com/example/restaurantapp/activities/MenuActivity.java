@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public class MenuActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private MenuAdapter adapter;
     private List<FoodItem> foodItems;
+    private TextInputEditText editSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +79,7 @@ public class MenuActivity extends AppCompatActivity {
         rvMenu.setAdapter(adapter);
 
         // Search
-        TextInputEditText editSearch = findViewById(R.id.editSearch);
+        editSearch = findViewById(R.id.editSearch);
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -93,6 +96,46 @@ public class MenuActivity extends AppCompatActivity {
             List<FoodItem> filtered = dbHelper.searchFoodItems(query);
             adapter.updateList(filtered);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            editSearch.requestFocus();
+            return true;
+        }
+        if (id == R.id.action_profile) {
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
+        }
+        if (id == R.id.action_cart) {
+            startActivity(new Intent(this, CartActivity.class));
+            return true;
+        }
+        if (id == R.id.action_orders) {
+            startActivity(new Intent(this, OrderHistoryActivity.class));
+            return true;
+        }
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
+        }
+        if (id == R.id.action_logout) {
+            sessionManager.clearSession();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
