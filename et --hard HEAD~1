@@ -1,0 +1,30 @@
+[33mb19afc0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m ui: fix item_category layout after icon update.
+[33mf59d6f3[m ui: replace category emoji with icons
+[33m77f288b[m ui: replace category emoji with icons
+[33m94138cd[m fix: replace private framework icons in drawer_menu
+[33mf9f2b70[m fix: add missing drawer_menu resource
+[33mb664c2d[m Update activity_menu.xml to include DrawerLayout and NavigationView
+[33mdb7454f[m Fix MenuActivity layout and add navigation drawer (Option A)
+[33m59a1d56[m Complete navigation drawer in MenuActivity layout and wiring
+[33m366417f[m Add navigation drawer (hamburger) to MenuActivity
+[33ma5314c8[m Merge pull request #5 from k4r0-67/copilot/add-login-registration-screen
+[33m47393c8[m[33m ([m[1;31morigin/copilot/add-login-registration-screen[m[33m, [m[1;32mcopilot/add-login-registration-screen[m[33m)[m feat: implement fully functional restaurant ordering app
+[33ma95d105[m Initial plan
+[33mc0aeede[m feat: add bottom_nav_color selector for BottomNavigationView tinting
+[33mde4497a[m fix: replace selectedItemColor/unselectedItemColor with itemIconTint and itemTextColor
+[33meb02e70[m fix: upgrade Gradle to 8.9 for JDK 21 support
+[33m31b9823[m fix: upgrade Android Gradle Plugin to 8.7.0 for JDK 21 support
+[33m9baccd5[m fix: upgrade compileSdk, targetSdk, and Java version for JDK 21
+[33mc2863e3[m Merge pull request #4 from k4r0-67/copilot/update-agp-to-8-2-0
+[33meaa46c5[m Initial plan
+[33mc5e7d47[m Merge pull request #3 from k4r0-67/copilot/fix-adaptive-icon-build-errors
+[33me2f6e6e[m[33m ([m[1;31morigin/copilot/fix-adaptive-icon-build-errors[m[33m, [m[1;32mcopilot/fix-adaptive-icon-build-errors[m[33m)[m Fix adaptive-icon build errors: change minSdk from 24 to 26
+[33ma38494a[m Initial plan
+[33m8491458[m Merge pull request #2 from k4r0-67/copilot/fix-adaptive-icon-sdk-version
+[33m0c675a5[m[33m ([m[1;31morigin/copilot/fix-adaptive-icon-sdk-version[m[33m, [m[1;32mcopilot/fix-adaptive-icon-sdk-version[m[33m)[m Fix: Move adaptive-icon XMLs to mipmap-anydpi-v26/ and add PNG fallbacks in density folders
+[33m170a19d[m Initial plan
+[33m353613f[m Merge pull request #1 from k4r0-67/copilot/add-android-restaurant-app
+[33mab59164[m[33m ([m[1;31morigin/copilot/add-android-restaurant-app[m[33m, [m[1;32mcopilot/add-android-restaurant-app[m[33m)[m Add complete Android Restaurant Application (Java)
+[33m2f4d5fd[m Add complete Android Restaurant Application (Java)
+[33m925c71d[m Initial plan
+[33m0605ec2[m Initial commit
