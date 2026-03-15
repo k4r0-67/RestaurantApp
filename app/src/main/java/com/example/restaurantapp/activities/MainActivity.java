@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rvCategories = findViewById(R.id.rvCategories);
         rvCategories.setLayoutManager(new GridLayoutManager(this, 2));
         List<String> categories = Arrays.asList(
-                "Appetizers", "Main Course", "Desserts", "Beverages"
+                "Appetizers", "Main Course", "Desserts", "Beverages",
+                "Sides", "Breakfast", "Seafood", "Salads"
         );
         CategoryAdapter adapter = new CategoryAdapter(this, categories);
         rvCategories.setAdapter(adapter);
