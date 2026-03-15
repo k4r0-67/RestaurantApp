@@ -674,6 +674,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFoodItem(db, "Sweet Potato Fries", "Crispy sweet potato fries with chipotle mayo.", 5.49, imgSides, "Sides");
         insertFoodItem(db, "Onion Rings", "Beer-battered onion rings with ranch dipping sauce.", 5.99, imgSides, "Sides");
         insertFoodItem(db, "Corn on the Cob", "Grilled corn with butter and optional chili lime seasoning.", 3.49, imgSides, "Sides");
+        insertFoodItem(db, "Loaded Baked Potato", "Baked potato with cheddar, bacon, sour cream, and chives.", 6.49, imgSides, "Sides");
+        insertFoodItem(db, "Truffle Fries", "Crispy fries tossed with truffle oil and parmesan.", 7.99, imgSides, "Sides");
+        insertFoodItem(db, "Grilled Asparagus", "Fresh asparagus with lemon butter and parmesan.", 5.99, imgSides, "Sides");
+        insertFoodItem(db, "Roasted Brussels Sprouts", "Crispy Brussels sprouts with balsamic glaze.", 5.49, imgSides, "Sides");
+        insertFoodItem(db, "Garlic Breadsticks", "Warm breadsticks with garlic butter and marinara.", 4.99, imgSides, "Sides");
+        insertFoodItem(db, "Jalapeño Poppers", "Cream cheese–stuffed jalapeños, breaded and fried.", 6.99, imgSides, "Sides");
+        insertFoodItem(db, "House Salad Side", "Mixed greens with tomato and choice of dressing.", 3.99, imgSides, "Sides");
+        insertFoodItem(db, "Black Beans & Rice", "Seasoned black beans over cilantro lime rice.", 4.49, imgSides, "Sides");
 
         // Breakfast
         insertFoodItem(db, "Pancakes", "Stack of fluffy buttermilk pancakes with maple syrup and butter.", 8.99, imgBreakfast, "Breakfast");
@@ -686,6 +694,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFoodItem(db, "Breakfast Burrito", "Scrambled eggs, cheese, potatoes, and salsa in a flour tortilla.", 10.49, imgBreakfast, "Breakfast");
         insertFoodItem(db, "Granola & Yogurt", "House granola with Greek yogurt and seasonal fruit.", 7.99, imgBreakfast, "Breakfast");
         insertFoodItem(db, "Croissant & Jam", "Fresh butter croissant with strawberry or apricot jam.", 5.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Scrambled Eggs & Bacon", "Fluffy scrambled eggs with crispy bacon and toast.", 9.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Breakfast Bowl", "Quinoa, black beans, avocado, egg, and salsa.", 11.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Smoked Salmon Bagel", "Toasted bagel with cream cheese, capers, and smoked salmon.", 12.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Huevos Rancheros", "Fried eggs on tortillas with ranchero sauce, beans, and cheese.", 10.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Steel-Cut Oatmeal", "Oatmeal with brown sugar, berries, and nuts.", 7.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Breakfast Quesadilla", "Flour tortilla with eggs, cheese, and chorizo.", 9.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Belgian Waffle Combo", "Waffle with two eggs and your choice of bacon or sausage.", 13.99, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Fruit Parfait", "Layers of yogurt, granola, and fresh seasonal fruit.", 8.49, imgBreakfast, "Breakfast");
+        insertFoodItem(db, "Breakfast Sandwich", "Egg, cheese, and choice of meat on English muffin or croissant.", 8.99, imgBreakfast, "Breakfast");
 
         // Seafood
         insertFoodItem(db, "Grilled Shrimp", "Jumbo shrimp grilled with garlic butter and lemon.", 18.99, imgSeafood, "Seafood");
@@ -698,6 +715,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFoodItem(db, "Shrimp Scampi", "Shrimp in garlic white wine sauce over linguine.", 19.99, imgSeafood, "Seafood");
         insertFoodItem(db, "Clam Chowder", "New England style creamy clam chowder with bacon.", 8.99, imgSeafood, "Seafood");
         insertFoodItem(db, "Tuna Steak", "Seared tuna steak with ginger soy glaze and edamame.", 23.99, imgSeafood, "Seafood");
+        insertFoodItem(db, "Mussels in White Wine", "Steamed mussels in garlic white wine broth with bread.", 16.49, imgSeafood, "Seafood");
+        insertFoodItem(db, "Fish and Chips", "Beer-battered cod with fries, coleslaw, and tartar sauce.", 15.99, imgSeafood, "Seafood");
+        insertFoodItem(db, "Cajun Shrimp", "Spicy Cajun-seasoned shrimp with rice and vegetables.", 19.49, imgSeafood, "Seafood");
+        insertFoodItem(db, "Lobster Roll", "Chilled lobster meat in buttered roll with mayo and celery.", 26.99, imgSeafood, "Seafood");
+        insertFoodItem(db, "Sushi Platter", "Assorted nigiri and maki with soy sauce and wasabi.", 28.99, imgSeafood, "Seafood");
+        insertFoodItem(db, "Coconut Shrimp", "Crispy coconut-battered shrimp with sweet chili sauce.", 17.99, imgSeafood, "Seafood");
+        insertFoodItem(db, "Grilled Swordfish", "Swordfish steak with lemon herb butter and vegetables.", 24.99, imgSeafood, "Seafood");
+        insertFoodItem(db, "Seafood Linguine", "Linguine with shrimp, scallops, and clams in garlic tomato sauce.", 22.49, imgSeafood, "Seafood");
+        insertFoodItem(db, "Oysters Rockefeller", "Baked oysters with spinach, cheese, and breadcrumbs.", 18.99, imgSeafood, "Seafood");
 
         // Salads
         insertFoodItem(db, "Caesar Salad", "Crisp romaine with parmesan, croutons, and classic Caesar dressing.", 8.99, imgSalads, "Salads");
@@ -710,6 +736,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFoodItem(db, "Waldorf Salad", "Apples, walnuts, celery, and grapes in creamy dressing.", 9.99, imgSalads, "Salads");
         insertFoodItem(db, "Nicoise Salad", "Tuna, green beans, egg, olives, and potatoes with vinaigrette.", 13.99, imgSalads, "Salads");
         insertFoodItem(db, "Kale Salad", "Massaged kale with cranberries, almonds, and tahini dressing.", 9.49, imgSalads, "Salads");
+        insertFoodItem(db, "Southwest Salad", "Mixed greens with black beans, corn, avocado, and chipotle ranch.", 11.99, imgSalads, "Salads");
+        insertFoodItem(db, "Mediterranean Salad", "Cucumber, tomato, olives, feta, and lemon oregano dressing.", 10.49, imgSalads, "Salads");
+        insertFoodItem(db, "Spinach Salad", "Baby spinach with strawberries, goat cheese, and balsamic.", 9.99, imgSalads, "Salads");
+        insertFoodItem(db, "Taco Salad", "Seasoned beef, lettuce, cheese, salsa, and sour cream in a tortilla bowl.", 12.49, imgSalads, "Salads");
+        insertFoodItem(db, "Chicken Caesar Wrap", "Caesar salad with grilled chicken in a flour tortilla.", 10.99, imgSalads, "Salads");
+        insertFoodItem(db, "Fattoush", "Middle Eastern salad with cucumber, tomato, pita, and sumac dressing.", 9.49, imgSalads, "Salads");
+        insertFoodItem(db, "Arugula & Pear", "Arugula with pear, walnuts, and blue cheese vinaigrette.", 10.99, imgSalads, "Salads");
+        insertFoodItem(db, "Asian Slaw", "Shredded cabbage and carrots with sesame ginger dressing.", 7.49, imgSalads, "Salads");
+        insertFoodItem(db, "Beet & Goat Cheese", "Roasted beets, goat cheese, arugula, and balsamic glaze.", 11.49, imgSalads, "Salads");
     }
 
     private void insertFoodItem(SQLiteDatabase db, String name, String description, double price, int imageResId, String category) {
