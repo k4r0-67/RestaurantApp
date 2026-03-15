@@ -3,11 +3,20 @@
     android:height="96dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- Leaf / salad bowl -->
+    <!-- Bowl with salad greens -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M4,10h16v4c0,2.2 -1.8,4 -4,4H8c-2.2,0 -4,-1.8 -4,-4v-4z"/>
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M6,18h12v2H6v-2z"/>
     <path
         android:fillColor="#66BB6A"
-        android:pathData="M17,8C8,10 5.9,16.17 3.2,20.4c1.5,0.4 3.09,0.6 4.8,0.6 2.48,0 4.87,-0.67 6.9,-1.92 2.03,1.25 4.42,1.92 6.9,1.92 1.71,0 3.3,-0.2 4.8,-0.6C18.1,16.17 16,10 17,8z"/>
+        android:pathData="M8,8c0,0 2,2 4,2s4,-2 4,-2c-1,-2 -2.3,-2 -4,-2S8,8 8,8z"/>
     <path
         android:fillColor="#43A047"
-        android:pathData="M12,2C6.48,2 2,6.48 2,12c0,1.54 0.36,3 1,4.31 1.64,-2.31 3.95,-4.31 9,-4.31s7.36,2 9,4.31c0.64,-1.31 1,-2.77 1,-4.31C22,6.48 17.52,2 12,2z"/>
+        android:pathData="M10,10c0.5,0.5 1.5,0.5 2,0 0.5,-0.5 1.5,-0.5 2,0"/>
+    <path
+        android:fillColor="#81C784"
+        android:pathData="M9,12c0.6,0.4 1.4,0.4 2,0 0.6,-0.4 1.4,-0.4 2,0"/>
 </vector>
