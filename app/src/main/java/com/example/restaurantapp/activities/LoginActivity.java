@@ -33,9 +33,9 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-        // If already logged in, go to main
+        // If already logged in, go to profile
         if (sessionManager.isLoggedIn()) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, ProfileActivity.class));
             finish();
             return;
         }
@@ -78,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             sessionManager.saveSession(user.getId(), user.getName(), user.getEmail());
             Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainActivity.class));
+            // After login, show user information screen
+            startActivity(new Intent(this, ProfileActivity.class));
             finish();
         } else {
             Toast.makeText(this, getString(R.string.error_invalid_credentials), Toast.LENGTH_LONG).show();
