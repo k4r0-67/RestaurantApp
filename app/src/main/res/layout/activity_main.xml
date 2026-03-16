@@ -11,8 +11,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="8dp"
-        style="@style/Widget.RestaurantApp.Toolbar" />
+        style="@style/Widget.RestaurantApp.Toolbar"
+        android:fitsSystemWindows="true" />
 
     <!-- Welcome header -->
     <LinearLayout
