@@ -86,6 +86,7 @@
 
     <!-- Toolbar menu -->
     <string name="action_search">Search</string>
+    <string name="settings">Settings</string>
 
     <!-- Bottom navigation -->
     <string name="nav_home">Home</string>
