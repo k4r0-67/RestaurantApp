@@ -3,7 +3,8 @@
     <style name="Widget.RestaurantApp.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@color/primary</item>
         <item name="android:elevation">4dp</item>
-        <item name="android:minHeight">?attr/actionBarSize</item>
+        <!-- Slimmer, more professional height -->
+        <item name="android:minHeight">56dp</item>
         <item name="titleTextColor">@color/text_on_primary</item>
         <item name="titleTextAppearance">@style/TextAppearance.RestaurantApp.Toolbar.Title</item>
         <item name="contentInsetStartWithNavigation">16dp</item>
