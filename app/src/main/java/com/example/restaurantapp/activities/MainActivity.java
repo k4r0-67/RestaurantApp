@@ -94,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, MenuActivity.class));
             return true;
         }
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
+        }
         if (id == R.id.action_profile) {
             startActivity(new Intent(this, ProfileActivity.class));
             return true;
