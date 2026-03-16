@@ -18,7 +18,7 @@
         style="@style/Widget.RestaurantApp.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Orders"
+        app:title="My Cart"
         android:fitsSystemWindows="true"
         app:titleTextColor="#fff"
         app:titleCentered="false">
