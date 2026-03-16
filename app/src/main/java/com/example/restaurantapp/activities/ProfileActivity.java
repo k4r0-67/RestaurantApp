@@ -85,9 +85,6 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(new Intent(this, MenuActivity.class));
             return true;
         }
-        if (id == R.id.action_settings) {
-            return true; // already in settings/profile
-        }
         if (id == R.id.action_profile) {
             return true; // already here
         }
