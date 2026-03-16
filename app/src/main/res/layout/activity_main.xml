@@ -7,12 +7,23 @@
     android:background="@color/background">
 
     <!-- App bar -->
-    <androidx.appcompat.widget.Toolbar
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        style="@style/Widget.RestaurantApp.Toolbar"-->
+<!--        android:fitsSystemWindows="true" />-->
+
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
         style="@style/Widget.RestaurantApp.Toolbar"
-        android:fitsSystemWindows="true" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Restaurant "
+        android:fitsSystemWindows="true"
+        app:titleTextColor="#fff"
+        app:titleCentered="false">
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <!-- Welcome header -->
     <LinearLayout

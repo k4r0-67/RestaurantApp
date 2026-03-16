@@ -6,11 +6,22 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <androidx.appcompat.widget.Toolbar
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        style="@style/Widget.RestaurantApp.Toolbar" />-->
+
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
+        style="@style/Widget.RestaurantApp.Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/Widget.RestaurantApp.Toolbar" />
+        android:layout_height="wrap_content"
+        app:title="Restaurant App"
+        android:fitsSystemWindows="true"
+        app:titleTextColor="#fff"
+        app:titleCentered="false">
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <!-- Category title -->
     <TextView
