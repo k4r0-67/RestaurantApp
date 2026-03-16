@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,12 +87,6 @@ public class MenuActivity extends AppCompatActivity {
             }
             @Override public void afterTextChanged(Editable s) {}
         });
-
-        // Profile picture in toolbar
-        View ivToolbarProfile = findViewById(R.id.ivToolbarProfile);
-        if (ivToolbarProfile != null) {
-            ivToolbarProfile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
-        }
     }
 
     private void filterItems(String query) {
