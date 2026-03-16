@@ -57,6 +57,15 @@ public class ProfileActivity extends AppCompatActivity {
             editEmail.setText(currentUser.getEmail());
             editPhone.setText(currentUser.getPhone());
             editAddress.setText(currentUser.getAddress());
+            // Also update header labels
+            android.widget.TextView tvProfileName = findViewById(R.id.tvProfileName);
+            android.widget.TextView tvProfileEmail = findViewById(R.id.tvProfileEmail);
+            if (tvProfileName != null) {
+                tvProfileName.setText(currentUser.getName());
+            }
+            if (tvProfileEmail != null) {
+                tvProfileEmail.setText(currentUser.getEmail());
+            }
         }
 
         btnSave.setOnClickListener(v -> saveProfile());
