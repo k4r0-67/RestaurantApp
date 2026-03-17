@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name" translatable="false"> China Food </string>
-    <string name="restaurant_name">China food</string>
+    <string name="app_name"> China Food </string>
+    <string name="restaurant_name">China Food</string>
     <string name="restaurant_tagline">Fine Dining, Delivered to You</string>
 
     <!-- Auth screens -->

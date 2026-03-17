@@ -38,32 +38,39 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardCornerRadius="300dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="30dp"
         app:cardElevation="4dp"
-        android:background="@color/white">
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="#F1F3F4">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search_food"
-            android:textColorHint="@color/white"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            app:hintEnabled="false"
+            app:boxBackgroundMode="none"
+            app:startIconDrawable="@android:drawable/ic_menu_search"
+            app:startIconTint="#757575"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:hint="@string/search_food"
+                android:textColorHint="#9E9E9E"
+                android:background="@null"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:imeOptions="actionSearch"
-                android:background="@color/white"
+                android:inputType="text"
                 android:textColor="@android:color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </com.google.android.material.card.MaterialCardView>
 
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMenu"
         android:layout_width="match_parent"
