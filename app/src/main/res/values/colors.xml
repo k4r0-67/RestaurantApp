@@ -5,6 +5,10 @@
     <color name="primary_dark">#B71C1C</color>
     <color name="primary_light">#FFCDD2</color>
     <color name="accent">#FF6F00</color>
+    <color name="red">#F77979</color>
+    <color name="black">#000000</color>
+
+
 
     <!-- Background colors -->
     <color name="background">#FAFAFA</color>

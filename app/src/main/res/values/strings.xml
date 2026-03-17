@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Restaurant App</string>
-    <string name="restaurant_name">La Bella Cucina</string>
+    <string name="app_name"> Restaurant </string>
+    <string name="restaurant_name">China food</string>
     <string name="restaurant_tagline">Fine Dining, Delivered to You</string>
 
     <!-- Auth screens -->
@@ -75,14 +75,15 @@
 
     <!-- About screen -->
     <string name="about">About Us</string>
-    <string name="about_description">La Bella Cucina is a premium restaurant offering a wide variety of dishes crafted with the finest ingredients. We are committed to delivering an unforgettable dining experience.</string>
+    <string name="about_description">China food is a premium restaurant offering a wide variety of dishes crafted with the finest ingredients. We are committed to delivering an unforgettable dining experience.</string>
     <string name="contact_us">Contact Us</string>
-    <string name="phone_number">📞 +1 (555) 123-4567</string>
-    <string name="email_address">✉️ info@labellacucina.com</string>
-    <string name="location">📍 123 Gourmet Street, Foodville, FC 00123</string>
+    <string name="phone_number">📞 +964 7517810353</string>
+    <string name="email_address">✉️ hawkarjawhar692@gmail.com</string>
+    <string name="location">📍 havalan Street, 121 gulan, </string>
     <string name="hours_of_operation">Hours of Operation</string>
-    <string name="hours_weekdays">Monday – Friday: 11:00 AM – 10:00 PM</string>
-    <string name="hours_weekend">Saturday – Sunday: 10:00 AM – 11:00 PM</string>
+    <string name="hours_weekdays">Monday – Thursday: 10:00 AM – 12:00 PM</string>
+    <string name="hours_weekend">Saturday – Sunday: 11:00 AM – 12:00 PM</string>
+    <string name="hours_weekday"> Friday: 1:00 PM – 1:00 AM</string>
 
     <!-- Toolbar menu -->
     <string name="action_search">Search</string>

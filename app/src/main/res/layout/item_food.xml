@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:background="@color/red">
 
         <!-- Food image -->
         <ImageView
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:fontFamily="sans-serif-medium"
-                android:textColor="@color/text_primary"
+                android:textColor="@color/black"
                 android:maxLines="1"
                 android:ellipsize="end" />
 
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/black"
                 android:maxLines="2"
                 android:ellipsize="end" />
 
@@ -67,7 +68,7 @@
                     android:layout_weight="1"
                     android:textSize="15sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/price_color" />
+                    android:textColor="@color/black" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAddToCart"
