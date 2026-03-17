@@ -17,14 +17,22 @@
         android:padding="12dp"
         android:background="@color/red">
 
-        <!-- Food image -->
-        <ImageView
-            android:id="@+id/ivFood"
+        <androidx.cardview.widget.CardView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:scaleType="centerCrop"
-            android:background="@color/primary_light"
-            android:contentDescription="@string/app_name" />
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/ivFood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_food_bagel"
+                android:contentDescription="@string/app_name" />
+
+        </androidx.cardview.widget.CardView>
 
         <!-- Cart item details -->
         <LinearLayout
