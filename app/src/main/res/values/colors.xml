@@ -5,9 +5,11 @@
     <color name="primary_dark">#B71C1C</color>
     <color name="primary_light">#FFCDD2</color>
     <color name="accent">#FF6F00</color>
-    <color name="red">#F77979</color>
+    <color name="red">#fff4f4</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="pink">#F77979</color>
+
 
 
 

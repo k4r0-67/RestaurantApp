@@ -19,40 +19,40 @@
         style="@style/Widget.RestaurantApp.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Restaurant "
+        app:title="China Food "
         android:fitsSystemWindows="true"
         app:titleTextColor="#fff"
         app:titleCentered="false">
     </com.google.android.material.appbar.MaterialToolbar>
 
-     Welcome header
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary"
-        android:elevation="4dp"
-        android:orientation="vertical"
-        android:padding="20dp">
+<!--     Welcome header-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/primary"-->
+<!--        android:elevation="4dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="20dp">-->
 
-        <TextView
-            android:id="@+id/tvWelcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome_message"
-            android:textColor="@color/text_on_primary"
-            android:textSize="22sp"
-            android:fontFamily="sans-serif-medium" />
+<!--        <TextView-->
+<!--            android:id="@+id/tvWelcome"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/welcome_message"-->
+<!--            android:textColor="@color/text_on_primary"-->
+<!--            android:textSize="22sp"-->
+<!--            android:fontFamily="sans-serif-medium" />-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/explore_menu"
-            android:textColor="@color/primary_light"
-            android:textSize="14sp" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            android:text="@string/explore_menu"-->
+<!--            android:textColor="@color/primary_light"-->
+<!--            android:textSize="14sp" />-->
+<!--    </LinearLayout>-->
 
-     Categories label
+<!--     Categories label-->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

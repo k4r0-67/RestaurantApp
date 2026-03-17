@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Set welcome message
-        TextView tvWelcome = findViewById(R.id.tvWelcome);
-        String userName = sessionManager.getUserName();
-        tvWelcome.setText(getString(R.string.welcome_message, userName));
+//        TextView tvWelcome = findViewById(R.id.tvWelcome);
+//        String userName = sessionManager.getUserName();
+//        tvWelcome.setText(getString(R.string.welcome_message, userName));
 
         // Set up category RecyclerView
         RecyclerView rvCategories = findViewById(R.id.rvCategories);
