@@ -25,7 +25,7 @@
         app:titleCentered="false">
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <!-- Welcome header -->
+     Welcome header
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Categories label -->
+     Categories label
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
