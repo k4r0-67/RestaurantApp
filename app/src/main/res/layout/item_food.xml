@@ -79,7 +79,7 @@
                     android:paddingRight="16dp"
                     android:text="@string/add_to_cart"
                     android:textSize="13sp"
-                    app:backgroundTint="@color/primary" />
+                    app:backgroundTint="@color/primary_dark" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
